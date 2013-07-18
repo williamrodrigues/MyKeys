@@ -1,0 +1,258 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:id="@+id/linearMan1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/linearMan2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40.0dip"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearMan3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9.0dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <com.android.internal.widget.DialogTitle
+                    android:id="@+id/dialogMainMsg"
+                    style="?android:attr/textAppearanceLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearMan4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/editMainDig1"
+                    style="@+style/SingleCharacterPasscodeBox"
+                    android:layout_width="80.0sp"
+                    android:layout_height="80.0sp"
+                    android:autoText="false"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:maxLength="1"
+                    android:password="true"
+                    android:textSize="50sp"
+                    android:textStyle="bold" >
+
+                    <requestFocus
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </EditText>
+
+                <TextView
+                    android:layout_width="4.0dip"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/editMainDig2"
+                    style="@+style/SingleCharacterPasscodeBox"
+                    android:layout_width="80.0sp"
+                    android:layout_height="80.0sp"
+                    android:layout_weight="0.0"
+                    android:autoText="false"
+                    android:editable="false"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:password="true"
+                    android:textSize="50sp" />
+
+                <TextView
+                    android:layout_width="4.0dip"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/editMainDig3"
+                    style="@+style/SingleCharacterPasscodeBox"
+                    android:layout_width="80.0sp"
+                    android:layout_height="80.0sp"
+                    android:layout_weight="0.0"
+                    android:autoText="false"
+                    android:editable="false"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:password="true"
+                    android:textSize="50sp" />
+
+                <TextView
+                    android:layout_width="4.0dip"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/editMainDig4"
+                    style="@+style/SingleCharacterPasscodeBox"
+                    android:layout_width="80.0sp"
+                    android:layout_height="80.0sp"
+                    android:autoText="false"
+                    android:editable="false"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:password="true"
+                    android:textSize="50sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearMan5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/linearMan6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/buttonMainPin1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num1" />
+
+            <ImageButton
+                android:id="@+id/buttonMainPin4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num4" />
+
+            <ImageButton
+                android:id="@+id/buttonMainPin7"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num7" />
+
+            <ImageButton
+                android:id="@+id/buttonMainPin_blank"
+                android:layout_width="fill_parent"
+                android:layout_height="57dp"
+                android:clickable="false"
+                android:contentDescription="@string/labelNone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearMan7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/buttonMainPin2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num2" />
+
+            <ImageButton
+                android:id="@+id/buttonMainPin5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num5" />
+
+            <ImageButton
+                android:id="@+id/buttonMainPin8"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num8" />
+
+            <ImageButton
+                android:id="@+id/buttonMainPin0"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num0_no_plus" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearMan8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/buttonMainPin3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num3" />
+
+            <ImageButton
+                android:id="@+id/buttonMainPin6"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num6" />
+
+            <ImageButton
+                android:id="@+id/buttonMainPin9"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_num9" />
+
+            <ImageButton
+                android:id="@+id/buttonMainPin_Del"
+                android:layout_width="fill_parent"
+                android:layout_height="57dp"
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_delete" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/labelMainDigiteCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp"
+        android:text="@string/labelMainDigiteSenha"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>

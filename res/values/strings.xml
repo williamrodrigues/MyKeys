@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Nome da Aplicacao -->
+    <string name="app_name">Minhas Senhas</string>
+    <!-- Acoes da Aplicacao -->
+    <string name="action_settings">Configurações</string>
+    <!-- Label generica -->
+    <string name="labelNone"></string>
+    <!-- Tela Principal -->
+    <string name="labelMainDigiteSenha">Digite a Senha:</string>
+    <!-- Tela de Cadastro de Senha -->
+    <string name="title_activity_cadastro">Cadastro de Senha</string>
+    <string name="labelCadastroNome">Nome:</string>
+    <string name="labelCadastroEmail">E-mail:</string>
+    <string name="labelCadastroSenha">Senha:</string>
+    <string name="buttonCadastroSalvar">Salvar</string>
+    <!-- Tela Principal -->
+    <string name="title_activity_home">Home</string>
+    <string name="labelHomeTitulo">Bem-Vindo</string>
+    <string name="labelHomeNewKey">Nova Senha</string>
+    <string name="labelHomeListKeys">Listar Senhas</string>
+    <!-- Tela de Cadastro de Senha -->
+    <string name="title_activity_new_key">Cadastrar Senha</string>
+    <string name="hello_world">Nova senha!</string>
+    <!-- Tela de Listagem de Senhas -->
+    <string name="title_activity_list_key">Senhas</string>
+
+</resources>
