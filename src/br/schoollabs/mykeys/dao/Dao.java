@@ -2,10 +2,16 @@ package br.schoollabs.mykeys.dao;
 
 import java.util.List;
 
+import android.database.Cursor;
 import br.schoollabs.mykeys.model.Model;
 
 public interface Dao<MODEL extends Model> {
-
+	
+	/**
+	 * Criar Objeto pelo cursor
+	 */
+	public MODEL newCursor(Cursor cursor);
+	
 	/**
 	 * Criar Novo Mode para tipo proprio
 	 * 
@@ -30,10 +36,19 @@ public interface Dao<MODEL extends Model> {
 	/**
 	 * Procura um model por id
 	 * 
+	 * @param nameColumn
 	 * @param value
 	 * @return Model encontrado
 	 */
-	public MODEL find(String value);
+	public MODEL find(String nameColumn, String value);
+	
+	/**
+	 * Procura um model por id
+	 * 
+	 * @param id
+	 * @return Model encontrado
+	 */
+	public MODEL find(String id);
 
 	/**
 	 * Busca todos os models
@@ -41,5 +56,14 @@ public interface Dao<MODEL extends Model> {
 	 * @return Model
 	 */
 	public List<MODEL> findAll();
+	
+	/**
+	 * Procura todos os models
+	 * 
+	 * @param nameColumn
+	 * @param value
+	 * @return List<Model> encontrados
+	 */
+	public List<MODEL> findAll(String nameColumn, String value);
 	
 }

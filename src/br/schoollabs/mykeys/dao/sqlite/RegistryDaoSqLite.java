@@ -33,6 +33,20 @@ public class RegistryDaoSqLite extends AbstractDaoSqLite<Registry> implements Re
 		
 		return registry;
 	}
+
+	@Override
+	public Registry newCursor(Cursor cursor) {
+		DataDaoSqLite dataDaoSqLite = new DataDaoSqLite();
+		Registry registry = new Registry();
+		
+		registry.setId(cursor.getLong(cursor.getColumnIndex("id")));
+		registry.setName(cursor.getString(cursor.getColumnIndex("name")));
+		registry.setContent(cursor.getString(cursor.getColumnIndex("content")));
+		registry.setDate(DataSistema.parseStringToDate2(cursor.getString(cursor.getColumnIndex("date"))));
+		registry.setData(dataDaoSqLite.find(cursor.getString(cursor.getColumnIndex("data"))));
+		
+		return registry;
+	}
 	
 	
 }

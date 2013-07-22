@@ -1,14 +1,36 @@
 package br.schoollabs.mykeys;
 
-import android.app.Activity;
+import br.schoollabs.mykeys.dao.sqlite.DataDaoSqLite;
+import android.app.ListActivity;
 import android.os.Bundle;
 
-public class ListKeyActivity extends Activity {
-
+public class ListKeyActivity extends ListActivity {
+	private ListKeyAdapter listKeyAdapter;
+	private DataDaoSqLite dataDaoSqLite;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_list_key);
+		
+		dataDaoSqLite = new DataDaoSqLite();
+		listKeyAdapter = new ListKeyAdapter(this);
+		setListAdapter(listKeyAdapter);
+		
+		findKeys();
+	}
+
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		findKeys();
+	}
+
+
+	private void findKeys() {
+		listKeyAdapter.clear();
+		listKeyAdapter.addAll(dataDaoSqLite.findAll());
 	}
 
 }

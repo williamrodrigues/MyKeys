@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:layout_marginTop="10dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/labelListKeyNomeApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@+id/labelListKeyNomeApp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/labelListKeyUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@+id/labelListKeyUser"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/labelListKeyPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@+id/labelListKeyPassword"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</LinearLayout>

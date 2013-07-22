@@ -29,10 +29,7 @@
             <Spinner
                 android:id="@+id/spinnerNewKey"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <requestFocus />
-            </Spinner>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/labelNewKeyApp"
@@ -47,6 +44,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName|textCapSentences" >
+
+                <requestFocus />
             </EditText>
 
             <TextView

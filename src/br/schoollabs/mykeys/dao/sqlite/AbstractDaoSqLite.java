@@ -1,19 +1,21 @@
 package br.schoollabs.mykeys.dao.sqlite;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import br.schoollabs.mykeys.dao.Dao;
 import br.schoollabs.mykeys.model.Model;
 
-public class AbstractDaoSqLite<MODEL extends Model> implements Dao<MODEL> {
+public abstract class AbstractDaoSqLite<MODEL extends Model> implements Dao<MODEL> {
 
 	protected DatabaseConnection dbHelper;
 	protected SQLiteDatabase database;
-	
+
 	protected String modelClassName;
 	protected String edPackageModel;
-	
+
 	// ****************************** Contrutor ******************************
 	public AbstractDaoSqLite() {
 		dbHelper = DatabaseFactory.getDatabaseConnection();
@@ -64,14 +66,38 @@ public class AbstractDaoSqLite<MODEL extends Model> implements Dao<MODEL> {
 	}
 
 	@Override
-	public MODEL find(String value) {
-		// TODO Auto-generated method stub
+	public MODEL find(String nameColumn, String value) {
+		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = " + value + " ORDER BY id LIMIT 1", null);
+		while (cursor.moveToNext()) {
+			return newCursor(cursor);
+		}
 		return null;
 	}
 
 	@Override
 	public List<MODEL> findAll() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MODEL> findAll(String nameColumn, String value) {
+		List<MODEL> models = new ArrayList<MODEL>();
+		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = " + value, null);
+		
+		while (cursor.moveToNext()) {
+			models.add(newCursor(cursor));
+		}
+		
+		return models;
+	}
+
+	@Override
+	public MODEL find(String id) {
+		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE id = " + id, null);
+		while (cursor.moveToNext()) {
+			return newCursor(cursor);
+		}
 		return null;
 	}
 }

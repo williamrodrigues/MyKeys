@@ -34,5 +34,5 @@ public interface DataDao extends Dao<Data> {
 	
 	public Data findCategory(String contentCategory);
 	
-	public void saveKey(String category, Data key);
+	public Boolean saveKey(Data key);
 }

@@ -27,7 +27,7 @@ public class HomeMenuListAdapter  extends ArrayAdapter<Data> {
 		View rowView = inflater.inflate(R.layout.linear_home, parent, false);
 
 		// TextView para o titulo
-		TextView textView = (TextView) rowView.findViewById(R.id.labelHomeLinear);
+		TextView textView = (TextView) rowView.findViewById(R.id.labelListKeyNomeApp);
 
 		// Objeto clicado
 		Data data = this.getItem(position);
