@@ -28,7 +28,7 @@ public class HomeActivity extends ListActivity {
 		findTypes();
 
 		DataDaoSqLite dataDaoSqLite = new DataDaoSqLite();
-		((TextView) findViewById(R.id.labelHomeUsername)).setText((dataDaoSqLite.findUsername()).getContent());
+		((TextView) findViewById(R.id.labelHomeUsername)).setText((dataDaoSqLite.findOwnerName()).getContent());
 	}
 
 	@Override
@@ -46,6 +46,9 @@ public class HomeActivity extends ListActivity {
 		}
 		else if("Listar Senhas".equals(data.getContent())){
 			Utils.startActivity(this, ListKeyActivity.class);
+		}
+		else if("Categorias".equals(data.getContent())){
+			Utils.startActivity(this, CategoriesActivity.class);
 		}
 	}
 

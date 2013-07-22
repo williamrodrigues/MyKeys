@@ -1,5 +1,5 @@
 <a>
-  <img src="./ic_launcher-web.png" width="100px">
+  <img src="http://twitter.github.com/bootstrap/assets/img/bootstrap-docs-readme.png" width="100px">
 </a>
 
 MyKeys

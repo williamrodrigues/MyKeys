@@ -41,6 +41,10 @@
             android:name="br.schoollabs.mykeys.ListKeyActivity"
             android:label="@string/title_activity_list_key" >
         </activity>
+        <activity
+            android:name="br.schoollabs.mykeys.CategoriesActivity"
+            android:label="@string/title_activity_categories" >
+        </activity>
     </application>
 
 </manifest>

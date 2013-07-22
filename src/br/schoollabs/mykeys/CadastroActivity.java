@@ -46,29 +46,28 @@ public class CadastroActivity extends Activity {
 	}
 
 	private Boolean salvar() {
-		Type typeNome = new Type();
-		typeNome.setContent("Username");
+		Type type = new Type();
+		type.setName("System");
+		type.setContent("UserSystem");
+		
 		Data dataNome = new Data();
-		dataNome.setType(typeNome);
+		dataNome.setType(type);
+		dataNome.setName("OwnerName");
 		dataNome.setContent(((EditText) findViewById(R.id.editCadastroNome)).getText().toString());
 		
-		Type typeEmail = new Type();
-		typeEmail.setContent("EmailUser");
 		Data dataEmail = new Data();
-		dataEmail.setType(typeEmail);
+		dataEmail.setType(type);
+		dataEmail.setName("Email");
 		dataEmail.setContent(((EditText) findViewById(R.id.editCadastroEmail)).getText().toString());
 
-		Type typeSenha = new Type();
-		typeSenha.setContent("Password");
 		Data dataSenha = new Data();
-		dataSenha.setType(typeSenha);
+		dataSenha.setName("Password");
+		dataSenha.setType(type);
 		dataSenha.setContent(((EditText) findViewById(R.id.editCadastroSenha)).getText().toString());
 		
 		try {
 			// Salvar objetos
-			typeDaoSqLite.save(typeNome);
-			typeDaoSqLite.save(typeEmail);
-			typeDaoSqLite.save(typeSenha);
+			typeDaoSqLite.save(type);
 			
 			dataDaoSqLite.save(dataNome);
 			dataDaoSqLite.save(dataEmail);

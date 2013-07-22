@@ -22,8 +22,14 @@
     <string name="labelHomeListKeys">Listar Senhas</string>
     <!-- Tela de Cadastro de Senha -->
     <string name="title_activity_new_key">Cadastrar Senha</string>
-    <string name="hello_world">Nova senha!</string>
+    <string name="labelNewKeyCategoria">Categoria:</string>
+    <string name="labelNewKeyApp">Nome (E-mail, Blog, Comunidade, Aplicações e etc):</string>
+    <string name="labelNewKeyUser">Usuário:</string>
+    <string name="labelNewKeyPassword">Senha:</string>
+    <string name="buttonNewKeySave">Salvar</string>
     <!-- Tela de Listagem de Senhas -->
     <string name="title_activity_list_key">Senhas</string>
+    <!-- Tela de Listagem de Categorias -->
+    <string name="title_activity_categories">Categorias</string>
 
 </resources>

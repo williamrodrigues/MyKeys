@@ -4,4 +4,5 @@ import br.schoollabs.mykeys.model.Type;
 
 public interface TypeDao extends Dao<Type>{
 	
+	public Type findData();
 }

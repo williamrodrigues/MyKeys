@@ -16,9 +16,18 @@ public class Type extends ModelEntity {
 		this.date = DataSistema.getDataCorrenteDate();
 	}
 
+	private String name;
 	private String content;
 	private Date date;
 	private List<Data> datas = new ArrayList<Data>();
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getContent() {
 		return content;

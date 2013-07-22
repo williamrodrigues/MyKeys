@@ -33,4 +33,6 @@ public class RegistryDaoSqLite extends AbstractDaoSqLite<Registry> implements Re
 		
 		return registry;
 	}
+	
+	
 }
