@@ -25,7 +25,7 @@ public class ListKeyAdapter extends ArrayAdapter<Data> {
 		View rowView = inflater.inflate(R.layout.linear_list_key, parent, false);
 
 		// TextViews da tela
-		TextView textViewNomeApp = (TextView) rowView.findViewById(R.id.labelListKeyNomeApp);
+		TextView textViewNomeApp = (TextView) rowView.findViewById(R.id.labelLinearHomeCategory);
 		TextView textViewUser = (TextView) rowView.findViewById(R.id.labelListKeyUser);
 		TextView textViewPassword = (TextView) rowView.findViewById(R.id.labelListKeyPassword);
 

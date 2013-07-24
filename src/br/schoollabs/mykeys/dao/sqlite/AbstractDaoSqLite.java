@@ -3,6 +3,9 @@ package br.schoollabs.mykeys.dao.sqlite;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.StringUtils;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import br.schoollabs.mykeys.dao.Dao;
@@ -57,17 +60,17 @@ public abstract class AbstractDaoSqLite<MODEL extends Model> implements Dao<MODE
 
 	@Override
 	public void save(MODEL model) {
-		// TODO Auto-generated method stub
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public void remove(MODEL model) {
-		// TODO Auto-generated method stub
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public MODEL find(String nameColumn, String value) {
-		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = " + value + " ORDER BY id LIMIT 1", null);
+		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = '" + value + "' ORDER BY id LIMIT 1", null);
 		while (cursor.moveToNext()) {
 			return newCursor(cursor);
 		}
@@ -76,27 +79,55 @@ public abstract class AbstractDaoSqLite<MODEL extends Model> implements Dao<MODE
 
 	@Override
 	public List<MODEL> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<MODEL> findAll(String nameColumn, String value) {
 		List<MODEL> models = new ArrayList<MODEL>();
-		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = " + value, null);
-		
+		Cursor cursor = database.rawQuery("SELECT * FROM " + getModelClassName(), null);
+
 		while (cursor.moveToNext()) {
 			models.add(newCursor(cursor));
 		}
-		
+
 		return models;
 	}
 
 	@Override
+	public List<MODEL> findAll(String nameColumn, String value) {
+		if (StringUtils.isNotEmpty(nameColumn) && StringUtils.isNotEmpty(value)) {
+			List<MODEL> models = new ArrayList<MODEL>();
+			Cursor cursor = database.rawQuery("SELECT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = " + value, null);
+
+			while (cursor.moveToNext()) {
+				models.add(newCursor(cursor));
+			}
+
+			return models;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
 	public MODEL find(String id) {
-		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE id = " + id, null);
-		while (cursor.moveToNext()) {
-			return newCursor(cursor);
+		if (StringUtils.isNotEmpty(id)) {
+			Cursor cursor = database.rawQuery("SELECT * FROM " + getModelClassName() + " WHERE id = " + id, null);
+			while (cursor.moveToNext()) {
+				return newCursor(cursor);
+			}
+
+			return null;
+		} else {
+			return null;
+		}
+	}
+
+	public Object instanceDaoSqLite(String nameClass) {
+		try {
+			return (Class.forName("br.schoollabs.mykeys.dao.sqlite." + nameClass + "DaoSqLite")).newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

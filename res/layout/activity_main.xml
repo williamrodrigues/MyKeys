@@ -9,116 +9,6 @@
     tools:context=".MainActivity" >
 
     <LinearLayout
-        android:id="@+id/linearMan1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/linearMan2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40.0dip"
-            android:gravity="center_horizontal"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:id="@+id/linearMan3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="9.0dip"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <com.android.internal.widget.DialogTitle
-                    android:id="@+id/dialogMainMsg"
-                    style="?android:attr/textAppearanceLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearMan4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <EditText
-                    android:id="@+id/editMainDig1"
-                    style="@+style/SingleCharacterPasscodeBox"
-                    android:layout_width="80.0sp"
-                    android:layout_height="80.0sp"
-                    android:autoText="false"
-                    android:editable="false"
-                    android:gravity="center"
-                    android:maxLength="1"
-                    android:password="true"
-                    android:textSize="50sp"
-                    android:textStyle="bold" >
-
-                    <requestFocus
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </EditText>
-
-                <TextView
-                    android:layout_width="4.0dip"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:id="@+id/editMainDig2"
-                    style="@+style/SingleCharacterPasscodeBox"
-                    android:layout_width="80.0sp"
-                    android:layout_height="80.0sp"
-                    android:layout_weight="0.0"
-                    android:autoText="false"
-                    android:editable="false"
-                    android:maxLength="1"
-                    android:gravity="center"
-                    android:password="true"
-                    android:textSize="50sp" />
-
-                <TextView
-                    android:layout_width="4.0dip"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:id="@+id/editMainDig3"
-                    style="@+style/SingleCharacterPasscodeBox"
-                    android:layout_width="80.0sp"
-                    android:layout_height="80.0sp"
-                    android:layout_weight="0.0"
-                    android:autoText="false"
-                    android:editable="false"
-                    android:maxLength="1"
-                    android:gravity="center"
-                    android:password="true"
-                    android:textSize="50sp" />
-
-                <TextView
-                    android:layout_width="4.0dip"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:id="@+id/editMainDig4"
-                    style="@+style/SingleCharacterPasscodeBox"
-                    android:layout_width="80.0sp"
-                    android:layout_height="80.0sp"
-                    android:autoText="false"
-                    android:editable="false"
-                    android:maxLength="1"
-                    android:gravity="center"
-                    android:password="true"
-                    android:textSize="50sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linearMan5"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -160,9 +50,12 @@
             <ImageButton
                 android:id="@+id/buttonMainPin_blank"
                 android:layout_width="fill_parent"
-                android:layout_height="57dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
                 android:clickable="false"
-                android:contentDescription="@string/labelNone" />
+                android:contentDescription="@string/labelNone"
+                android:src="@drawable/sym_keyboard_none" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -239,7 +132,8 @@
             <ImageButton
                 android:id="@+id/buttonMainPin_Del"
                 android:layout_width="fill_parent"
-                android:layout_height="57dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
                 android:contentDescription="@string/labelNone"
                 android:src="@drawable/sym_keyboard_delete" />
         </LinearLayout>
@@ -254,5 +148,107 @@
         android:layout_marginTop="47dp"
         android:text="@string/labelMainDigiteSenha"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:id="@+id/linearMan2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/linearMan3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9.0dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <com.android.internal.widget.DialogTitle
+                android:id="@+id/dialogMainMsg"
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearMan4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/editMainDig1"
+                style="@+style/SingleCharacterPasscodeBox"
+                android:layout_width="70dp"
+                android:layout_height="80.0sp"
+                android:autoText="false"
+                android:editable="false"
+                android:gravity="center"
+                android:maxLength="1"
+                android:password="true"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="4.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/editMainDig2"
+                style="@+style/SingleCharacterPasscodeBox"
+                android:layout_width="70dp"
+                android:layout_height="80.0sp"
+                android:autoText="false"
+                android:editable="false"
+                android:gravity="center"
+                android:maxLength="1"
+                android:password="true"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="4.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/editMainDig3"
+                style="@+style/SingleCharacterPasscodeBox"
+                android:layout_width="70dp"
+                android:layout_height="80.0sp"
+                android:autoText="false"
+                android:editable="false"
+                android:gravity="center"
+                android:maxLength="1"
+                android:password="true"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="4.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/editMainDig4"
+                style="@+style/SingleCharacterPasscodeBox"
+                android:layout_width="70dp"
+                android:layout_height="80.0sp"
+                android:autoText="false"
+                android:editable="false"
+                android:gravity="center"
+                android:maxLength="1"
+                android:password="true"
+                android:textSize="50sp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

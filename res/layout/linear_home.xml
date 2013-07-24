@@ -13,13 +13,13 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="10dp"
         android:contentDescription="@string/labelNone"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_category" />
 
     <TextView
-        android:id="@+id/labelListKeyNomeApp"
+        android:id="@+id/labelLinearHomeCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/labelListKeyNomeApp"
+        android:text="@+id/labelLinearHomeCategory"
         android:textSize="20sp" />
 
 </LinearLayout>

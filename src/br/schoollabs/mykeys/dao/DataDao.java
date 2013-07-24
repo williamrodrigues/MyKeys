@@ -22,12 +22,6 @@ public interface DataDao extends Dao<Data> {
 	public Data findEmail();
 
 	/**
-	 * Buscar o menu para a Home 
-	 * @return @List<Type>
-	 */
-	public List<Data> findAllHomeMenus();
-
-	/**
 	 * Buscar todas as Categorias
 	 */
 	public List<Data> findCategories();

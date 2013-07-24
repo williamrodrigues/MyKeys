@@ -1,8 +1,8 @@
 package br.schoollabs.mykeys;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -10,19 +10,23 @@ import android.widget.Toast;
 import br.schoollabs.mykeys.dao.sqlite.DataDaoSqLite;
 import br.schoollabs.mykeys.dao.sqlite.DatabaseFactory;
 import br.schoollabs.mykeys.model.Data;
+import br.schoollabs.utils.Utils;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
-	/* ################################################################################################################ */
-	/* ATRIBUTOS */
-	/* ################################################################################################################ */
+	// ############################################################################################################################################################################
+	// ATRIBUTOS
+	// ############################################################################################################################################################################
+
+	private DataDaoSqLite dataDaoSqLite;
+
 	private Integer valueButton;
 	private Integer cont = 0;
 	private Data pwd;
-	
-	/* ################################################################################################################ */
-	/* GETS E SETS */
-	/* ################################################################################################################ */
+
+	// ############################################################################################################################################################################
+	// GETS E SETS
+	// ############################################################################################################################################################################
 	public Integer getValueButton() {
 		return valueButton;
 	}
@@ -61,9 +65,9 @@ public class MainActivity extends Activity {
 		this.cont += cont;
 	}
 
-	/* ################################################################################################################ */
-	/* METODOS */
-	/* ################################################################################################################ */
+	// ############################################################################################################################################################################
+	// METODOS
+	// ############################################################################################################################################################################
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,26 +78,25 @@ public class MainActivity extends Activity {
 		DatabaseFactory.initDatabaseConnection(this);
 
 		// Instaciando o DAO da tabela dos Dados
-		DataDaoSqLite sqLite = new DataDaoSqLite();
+		dataDaoSqLite = new DataDaoSqLite();
 		// Pega a senha cadastrada no sitema
-		pwd = sqLite.findPWD();
+		pwd = dataDaoSqLite.findPWD();
 		// Verifica se exite alguma senha cadastra caso nao abre a tela de cadastro de senha
-		if (pwd != null) {
-			setContentView(R.layout.activity_main);
 
-			clickButton();
-		} else {
+		setContentView(R.layout.activity_main);
+		clickButton();
+
+		if (pwd == null) {
 			finish();
-
-			Intent intent = new Intent(this, CadastroActivity.class);
-			startActivity(intent);
+			
+			Utils.startActivity(this, UserRegisteringtheInSystemActivity.class);
 		}
 	}
 
 	/**
 	 * Click's dos botoes, a cada click seta o valor devido
 	 */
-	public void clickButton() {
+	private void clickButton() {
 		ImageButton btn0 = (ImageButton) findViewById(R.id.buttonMainPin0);
 		btn0.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -200,7 +203,7 @@ public class MainActivity extends Activity {
 		String pwdSenha = ((EditText) findViewById(R.id.editMainDig1)).getText().toString() + ((EditText) findViewById(R.id.editMainDig2)).getText().toString()
 				+ ((EditText) findViewById(R.id.editMainDig3)).getText().toString() + ((EditText) findViewById(R.id.editMainDig4)).getText().toString();
 
-		if (pwd.getContent().equals(pwdSenha)) {
+		if (pwd != null && pwd.getContent().equals(pwdSenha)) {
 			finish();
 
 			Intent intent = new Intent(this, HomeActivity.class);
@@ -226,5 +229,4 @@ public class MainActivity extends Activity {
 
 		cont = 0;
 	}
-
 }

@@ -6,13 +6,13 @@ import java.util.List;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import br.schoollabs.mykeys.dao.sqlite.DataDaoSqLite;
+import br.schoollabs.mykeys.dao.sqlite.TypeDaoSqLite;
 import br.schoollabs.mykeys.model.Data;
 import br.schoollabs.mykeys.model.Registry;
 
@@ -24,7 +24,7 @@ public class NewKeyActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_key);
-		
+
 		key = new Data();
 
 		// Criando uma lista de String para popular o Spinner de Categorias
@@ -38,15 +38,6 @@ public class NewKeyActivity extends Activity {
 		ArrayAdapter<String> adp = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, categories);
 		adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		combo.setAdapter(adp);
-		
-		/* Butão para salvar a Senha */
-		Button btn = (Button) findViewById(R.id.buttonNewKeySave);
-		btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				saveKey();
-			}
-		});
 	}
 
 	@Override
@@ -55,12 +46,22 @@ public class NewKeyActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.action_new_key_save) {
+			saveKey();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 	private void saveKey() {
 		/* App */
+		key.setType(((TypeDaoSqLite) dataDaoSqLite.instanceDaoSqLite("Type")).find("name", "Data"));
 		key.setCategory(dataDaoSqLite.findCategory(((Spinner) findViewById(R.id.spinnerNewKey)).getSelectedItem().toString()));
 		key.setName("NameApp");
 		key.setContent(((EditText) findViewById(R.id.editNewKeyApp)).getText().toString());
-		
+
 		/* Usuario */
 		Registry userApp = new Registry();
 		userApp.setName("UserApp");
@@ -69,19 +70,18 @@ public class NewKeyActivity extends Activity {
 		Registry passwordApp = new Registry();
 		passwordApp.setName("PasswordApp");
 		passwordApp.setContent(((EditText) findViewById(R.id.editNewKeyPassword)).getText().toString());
-		
+
 		//
 		key.getRegistries().add(userApp);
 		key.getRegistries().add(passwordApp);
-		
-		if(dataDaoSqLite.saveKey(key)){
+
+		if (dataDaoSqLite.saveKey(key)) {
 			Toast.makeText(this, "Nova senha inserida com sucesso!!!", Toast.LENGTH_SHORT).show();
-			
+
 			finish();
-		}
-		else{
+		} else {
 			Toast.makeText(this, "Já existe uma cadastro de senha este Nome!!!", Toast.LENGTH_SHORT).show();
-		}	
+		}
 	}
 
 	public Data getKey() {

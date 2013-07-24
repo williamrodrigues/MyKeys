@@ -10,6 +10,7 @@ import android.os.Build;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Classe Utilitaria
@@ -28,7 +29,7 @@ public class Utils {
 		});
 	}
 
-	public static void startActivity(final Activity activity, final Class<? extends Activity> activityClass){
+	public static void startActivity(final Activity activity, final Class<? extends Activity> activityClass) {
 		Intent intent = new Intent(activity, activityClass);
 		activity.startActivity(intent);
 	}
@@ -39,6 +40,10 @@ public class Utils {
 
 	public static void setTextEditText(Activity activity, int inputTextId, String text) {
 		((EditText) activity.findViewById(inputTextId)).setText(text);
+	}
+	
+	public static void msg(Activity activity, String msg){
+		Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
 	}
 
 	public static String streamToString(InputStream is) throws IOException {

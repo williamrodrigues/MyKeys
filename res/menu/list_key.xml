@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item
+        android:id="@+id/action_new_key"
+        android:icon="@drawable/ic_key_new"
+        android:showAsAction="ifRoom"
+        android:title="@string/title_activity_new_key"/>
+
+</menu>
