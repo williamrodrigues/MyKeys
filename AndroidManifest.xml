@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="br.schoollabs.mykeys.UserRegisteringtheInSystemActivity"
+            android:name="br.schoollabs.mykeys.UserRegisteringTheInSystemActivity"
             android:label="@string/title_activity_user_registering_the_in_system" >
         </activity>
         <activity

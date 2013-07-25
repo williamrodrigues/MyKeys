@@ -13,7 +13,7 @@ import br.schoollabs.mykeys.model.Type;
 import br.schoollabs.utils.Utils;
 import br.schoollabs.utils.Validator;
 
-public class UserRegisteringtheInSystemActivity extends Activity {
+public class UserRegisteringTheInSystemActivity extends Activity {
 	private DataDaoSqLite dataDaoSqLite = new DataDaoSqLite();
 
 	@Override

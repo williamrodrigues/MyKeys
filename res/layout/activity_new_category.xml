@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/imageNewCategory"
-            android:layout_width="261dp"
-            android:layout_height="181dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="82dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center"
             android:contentDescription="@string/labelNone"
             android:src="@drawable/ic_category" />
 
@@ -23,7 +23,7 @@
             android:id="@+id/labelNewCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="left"
             android:text="@string/labelNewCategory"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -41,18 +41,17 @@
             android:id="@+id/labelNewCategoryOrdem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:text="@string/labelNewCategoryOrdem"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
-            android:id="@+id/editNewCategoryOrdem"
-            android:layout_width="match_parent"
+        <NumberPicker
+            android:id="@+id/numberPicker1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:inputType="number" >
-        </EditText>
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal" />
 
         <TextView
             android:id="@+id/labelNewCategoryObs"

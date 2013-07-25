@@ -38,6 +38,12 @@ public class NewKeyActivity extends Activity {
 		ArrayAdapter<String> adp = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, categories);
 		adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		combo.setAdapter(adp);
+		
+		for (int i = 0; i < adp.getCount(); i++){
+			if(adp.getItem(i).equals(dataDaoSqLite.find((String) getIntent().getExtras().get("idCategory")).getContent())){
+				combo.setSelection(i);
+			}
+		}
 	}
 
 	@Override

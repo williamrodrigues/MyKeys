@@ -34,6 +34,12 @@ public class Utils {
 		activity.startActivity(intent);
 	}
 
+	public static void startActivity(final Activity activity, final Class<? extends Activity> activityClass, String nameParam, String valuaParam) {
+		Intent intent = new Intent(activity, activityClass);
+		intent.putExtra(nameParam, valuaParam);
+		activity.startActivity(intent);
+	}
+	
 	public static String getTextFromEditText(Activity activity, int inputTextId) {
 		return ((EditText) activity.findViewById(inputTextId)).getText().toString();
 	}

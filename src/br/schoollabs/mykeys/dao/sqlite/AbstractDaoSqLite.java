@@ -70,7 +70,7 @@ public abstract class AbstractDaoSqLite<MODEL extends Model> implements Dao<MODE
 
 	@Override
 	public MODEL find(String nameColumn, String value) {
-		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = '" + value + "' ORDER BY id LIMIT 1", null);
+		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = '" + verificaAspasSimples(value) + "' ORDER BY id LIMIT 1", null);
 		while (cursor.moveToNext()) {
 			return newCursor(cursor);
 		}
@@ -93,7 +93,7 @@ public abstract class AbstractDaoSqLite<MODEL extends Model> implements Dao<MODE
 	public List<MODEL> findAll(String nameColumn, String value) {
 		if (StringUtils.isNotEmpty(nameColumn) && StringUtils.isNotEmpty(value)) {
 			List<MODEL> models = new ArrayList<MODEL>();
-			Cursor cursor = database.rawQuery("SELECT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = " + value, null);
+			Cursor cursor = database.rawQuery("SELECT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = '" + verificaAspasSimples(value) + "'", null);
 
 			while (cursor.moveToNext()) {
 				models.add(newCursor(cursor));
@@ -130,5 +130,12 @@ public abstract class AbstractDaoSqLite<MODEL extends Model> implements Dao<MODE
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public String verificaAspasSimples(String value){
+		if(value.contains("'")){
+			value = value.substring(0,(value.indexOf("'"))) + "'" + value.substring(value.indexOf("'"));
+		}
+		return value;
 	}
 }

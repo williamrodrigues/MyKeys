@@ -1,18 +1,16 @@
 package br.schoollabs.mykeys;
 
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -86,7 +84,7 @@ public class HomeActivity extends ListActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch (item.getItemId()) {
 		case R.id.action_home_delete:
-			final Data category = (Data) getListAdapter().getItem(info.position);
+			final Data categoryDelete = (Data) getListAdapter().getItem(info.position);
 
 			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 			dialog.setTitle("Confirmação");
@@ -96,7 +94,7 @@ public class HomeActivity extends ListActivity {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {					
-					dataDaoSqLite.remove(category);
+					dataDaoSqLite.remove(categoryDelete);
 
 					findCategories();
 					
@@ -114,15 +112,20 @@ public class HomeActivity extends ListActivity {
 			dialog.show();
 			return true;
 
+		case R.id.action_home_edit:
+			Data categoryEdit = (Data) getListAdapter().getItem(info.position);
+			
+			Utils.startActivity(this, NewCategoryActivity.class, "idCategory", categoryEdit.getId().toString());
+			
 		default:
 			return super.onContextItemSelected(item);
 		}
 	}
 
 	private void findCategories() {
-		List<Data> datas = dataDaoSqLite.findCategories();
-
 		listAdapter.clear();
-		listAdapter.addAll(datas);
+		for(Data data : dataDaoSqLite.findCategories()){			
+			listAdapter.add(data);
+		}
 	}
 }

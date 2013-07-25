@@ -89,7 +89,7 @@ public class MainActivity extends FragmentActivity {
 		if (pwd == null) {
 			finish();
 			
-			Utils.startActivity(this, UserRegisteringtheInSystemActivity.class);
+			Utils.startActivity(this, UserRegisteringTheInSystemActivity.class);
 		}
 	}
 

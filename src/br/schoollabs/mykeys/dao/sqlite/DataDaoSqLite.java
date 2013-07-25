@@ -46,8 +46,13 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 		}
 		values.put("date", DataSistema.formatDate(model.getDate(), "dd-MM-yyyy hh:mm:ss"));
 
-		// Inserindo Nova Senha
-		database.insert("Data", null, values);
+		// Salvando a Senha
+		if (model.getId() == null){
+			database.insert("Data", null, values);
+		}
+		else{
+			database.update("Data", values, "id = " + model.getId(), null);
+		}
 
 		// Buscando Id
 		model.setId(checkData(model));
@@ -62,8 +67,13 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 			values.put("data", model.getId());
 			values.put("date", DataSistema.formatDate(model.getDate(), "dd-MM-yyyy hh:mm:ss"));
 
-			// Inserindo registro da Nova Senha
-			database.insert("Registry", null, values);
+			// Salvando registro da Senha
+			if (registry.getId() == null){
+				database.insert("Registry", null, values);
+			}
+			else{
+				database.update("Registry", values, "id = " + registry.getId(), null);
+			}
 		}
 	}
 
@@ -78,6 +88,10 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 						database.delete("Registry", "id = " + registry.getId(), null);
 					}
 					database.delete("Data", "id = " + key.getId(), null);
+				}
+				/* Deletar os registros do model */
+				for(Registry registry : model.getRegistries()){
+					database.delete("Registry", "id = " + registry.getId(), null);
 				}
 				database.delete("Data", "id = " + model.getId(), null);
 			}
@@ -139,7 +153,7 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 
 	@Override
 	public Data findCategory(String contentCategory) {
-		Cursor cursor = database.rawQuery("SELECT d.* FROM Data d WHERE d.name = 'Category' AND d.content = '" + contentCategory + "' ORDER BY d.id LIMIT 1", null);
+		Cursor cursor = database.rawQuery("SELECT d.* FROM Data d WHERE d.name = 'Category' AND d.content = '" + verificaAspasSimples(contentCategory) + "' ORDER BY d.id LIMIT 1", null);
 
 		Data category = null;
 		while (cursor.moveToNext()) {
@@ -165,7 +179,7 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 	}
 
 	private Long checkData(Data data) {
-		Cursor cursor = database.rawQuery("SELECT d.id FROM Data d WHERE d.name = '" + data.getName() + "' AND d.content = '" + data.getContent() + "' AND type = 2 ORDER BY d.id", null);
+		Cursor cursor = database.rawQuery("SELECT d.id FROM Data d WHERE d.name = '" + data.getName() + "' AND d.content = '" + verificaAspasSimples(data.getContent()) + "' AND type = 2 ORDER BY d.id", null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			return cursor.getLong(0);
@@ -194,7 +208,7 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 	@Override
 	public List<Data> findAll(String nameColumn, String value) {
 		List<Data> models = new ArrayList<Data>();
-		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = " + value, null);
+		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM " + getModelClassName() + " WHERE " + nameColumn + " = " + verificaAspasSimples(value), null);
 
 		while (cursor.moveToNext()) {
 			Data data = newCursor(cursor);
