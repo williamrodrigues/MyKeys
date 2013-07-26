@@ -99,6 +99,9 @@ public class ListKeyActivity extends ListActivity {
 			return true;
 
 		case R.id.action_listkey_edit:
+			Data keyEdit = (Data) getListAdapter().getItem(info.position);
+
+			Utils.startActivity(this, NewKeyActivity.class, "idKey", keyEdit.getId().toString());
 
 		default:
 			return super.onContextItemSelected(item);
@@ -110,7 +113,7 @@ public class ListKeyActivity extends ListActivity {
 		((TextView) findViewById(R.id.labelListKeyNameCategory)).setText((dataDaoSqLite.find(idCategory)).getContent());
 
 		listKeyAdapter.clear();
-		for( Data data : dataDaoSqLite.findAll("category", idCategory.toString())){
+		for (Data data : dataDaoSqLite.findAll("category", idCategory.toString())) {
 			listKeyAdapter.add(data);
 		}
 	}

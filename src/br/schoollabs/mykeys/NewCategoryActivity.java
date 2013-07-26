@@ -24,10 +24,11 @@ public class NewCategoryActivity extends Activity {
 			category = dataDaoSqLite.find((String) getIntent().getExtras().get("idCategory"));
 
 			((EditText) findViewById(R.id.editNewCategory)).setText(category.getContent());
-//			((EditText) findViewById(R.id.editNewCategoryOrdem)).setText(category.getOrdem().toString());
-			
+			((EditText) findViewById(R.id.editNewCategoryOrdem)).setText(category.getOrdem().toString());
+
 		} else {
 			category = new Data();
+			((EditText) findViewById(R.id.editNewCategoryOrdem)).setText(String.valueOf(dataDaoSqLite.findMaxOrdem() + 1));
 		}
 	}
 
@@ -49,7 +50,7 @@ public class NewCategoryActivity extends Activity {
 	private void saveCategory() {
 		category.setName("Category");
 		category.setContent(((EditText) findViewById(R.id.editNewCategory)).getText().toString());
-//		category.setOrdem(Integer.parseInt(((EditText) findViewById(R.id.editNewCategoryOrdem)).getText().toString()));
+		category.setOrdem(Integer.parseInt(((EditText) findViewById(R.id.editNewCategoryOrdem)).getText().toString()));
 		category.setType(((TypeDaoSqLite) dataDaoSqLite.instanceDaoSqLite("Type")).find("name", "Data"));
 
 		Data ordem = dataDaoSqLite.find("ordem", category.getOrdem().toString());
@@ -79,10 +80,9 @@ public class NewCategoryActivity extends Activity {
 
 	private void validateCategory() {
 		if (Validator.validateNotNull(findViewById(R.id.editNewCategory), "Preencha no nome da categoria!")
-//				&& Validator.validateNotNull(findViewById(R.id.editNewCategoryOrdem), "Preencha a ordem da categoria!")
-				) {
+				&& Validator.validateNotNull(findViewById(R.id.editNewCategoryOrdem), "Preencha a ordem da categoria!")) {
 			saveCategory();
-		} 
+		}
 	}
 
 	public Data getCategory() {

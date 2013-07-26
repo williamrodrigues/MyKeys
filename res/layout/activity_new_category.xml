@@ -45,13 +45,12 @@
             android:text="@string/labelNewCategoryOrdem"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <NumberPicker
-            android:id="@+id/numberPicker1"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/editNewCategoryOrdem"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal" />
+            android:ems="10"
+            android:inputType="number" />
 
         <TextView
             android:id="@+id/labelNewCategoryObs"

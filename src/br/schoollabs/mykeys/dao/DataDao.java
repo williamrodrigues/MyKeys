@@ -5,19 +5,19 @@ import java.util.List;
 import br.schoollabs.mykeys.model.Data;
 
 public interface DataDao extends Dao<Data> {
-	
-	/** 
+
+	/**
 	 * @return Data (PWD)
 	 */
 	public Data findPWD();
-	
+
 	/**
-	 * @return Data (Username) 
+	 * @return Data (Username)
 	 */
 	public Data findOwnerName();
 
 	/**
-	 * @return Data (Email) 
+	 * @return Data (Email)
 	 */
 	public Data findEmail();
 
@@ -25,8 +25,10 @@ public interface DataDao extends Dao<Data> {
 	 * Buscar todas as Categorias
 	 */
 	public List<Data> findCategories();
-	
+
 	public Data findCategory(String contentCategory);
-	
+
 	public Boolean saveKey(Data key);
+
+	public Integer findMaxOrdem();
 }

@@ -27,7 +27,6 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 		data.setOrdem(cursor.getInt(cursor.getColumnIndex("ordem")));
 		data.setType(((TypeDaoSqLite) instanceDaoSqLite("Type")).find(cursor.getString(cursor.getColumnIndex("type"))));
 		data.setCategory(find(cursor.getString(cursor.getColumnIndex("category"))));
-
 		return data;
 	}
 
@@ -47,10 +46,9 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 		values.put("date", DataSistema.formatDate(model.getDate(), "dd-MM-yyyy hh:mm:ss"));
 
 		// Salvando a Senha
-		if (model.getId() == null){
+		if (model.getId() == null) {
 			database.insert("Data", null, values);
-		}
-		else{
+		} else {
 			database.update("Data", values, "id = " + model.getId(), null);
 		}
 
@@ -68,10 +66,9 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 			values.put("date", DataSistema.formatDate(model.getDate(), "dd-MM-yyyy hh:mm:ss"));
 
 			// Salvando registro da Senha
-			if (registry.getId() == null){
+			if (registry.getId() == null) {
 				database.insert("Registry", null, values);
-			}
-			else{
+			} else {
 				database.update("Registry", values, "id = " + registry.getId(), null);
 			}
 		}
@@ -80,17 +77,17 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 	@Override
 	public void remove(Data model) {
 		try {
-			if(model != null && model.getId() != null){
+			if (model != null && model.getId() != null) {
 				/* Deletar os filhos */
 				List<Data> keys = findAll("category", model.getId().toString());
-				for (Data key : keys){
-					for(Registry registry : key.getRegistries()){
+				for (Data key : keys) {
+					for (Registry registry : key.getRegistries()) {
 						database.delete("Registry", "id = " + registry.getId(), null);
 					}
 					database.delete("Data", "id = " + key.getId(), null);
 				}
 				/* Deletar os registros do model */
-				for(Registry registry : model.getRegistries()){
+				for (Registry registry : model.getRegistries()) {
 					database.delete("Registry", "id = " + registry.getId(), null);
 				}
 				database.delete("Data", "id = " + model.getId(), null);
@@ -166,7 +163,7 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 	@Override
 	public Boolean saveKey(Data key) {
 		try {
-			if (checkData(key) == null) {
+			if (key.getId() != null || checkData(key) == null) {
 				save(key);
 			} else {
 				return false;
@@ -179,7 +176,8 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 	}
 
 	private Long checkData(Data data) {
-		Cursor cursor = database.rawQuery("SELECT d.id FROM Data d WHERE d.name = '" + data.getName() + "' AND d.content = '" + verificaAspasSimples(data.getContent()) + "' AND type = 2 ORDER BY d.id", null);
+		Cursor cursor = database.rawQuery("SELECT d.id FROM Data d WHERE d.name = '" + data.getName() + "' AND d.content = '" + verificaAspasSimples(data.getContent())
+				+ "' AND type = 2 ORDER BY d.id", null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			return cursor.getLong(0);
@@ -218,5 +216,14 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 		}
 
 		return models;
+	}
+
+	@Override
+	public Integer findMaxOrdem() {
+		Cursor cursor = database.rawQuery("SELECT MAX(ordem) AS ordem FROM Data", null);
+		while (cursor.moveToNext()) {
+			return cursor.getInt(cursor.getColumnIndex("ordem"));
+		}
+		return null;
 	}
 }

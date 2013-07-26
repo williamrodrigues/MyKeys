@@ -5,5 +5,7 @@ import br.schoollabs.mykeys.model.Registry;
 
 public interface RegistryDao extends Dao<Registry>{
 	
-	public Registry findByDataWithImage(Data data);
+	public Registry findUserAppByData(Data data);
+	
+	public Registry findPasswordAppByData(Data data);
 }
