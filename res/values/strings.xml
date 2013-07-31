@@ -6,6 +6,8 @@
 
     <!-- Acoes da Aplicacao -->
     <string name="action_settings">Configurações</string>
+    <string name="action_backup_restore">Copia de Segurança / Restauração</string>
+    <string name="action_backup">Criar Copia de Segurança</string>
     <string name="action_edit">Alterar</string>
     <string name="action_delete">Excluir</string>
     <string name="action_save">Salvar</string>
@@ -45,5 +47,8 @@
     <string name="labelNewCategoryOrdem">Ordem:</string>
     <string name="labelNewCategoryObs">Obs: A ordem se refere a posição da categoria na tela inicial.</string>
     <string name="labelListKeyCategory">Categoria:</string>
+
+    <!-- Tela de Backup e Restore -->
+    <string name="title_activity_backup_restore">Cópia de Segurança e Restauração</string>
 
 </resources>

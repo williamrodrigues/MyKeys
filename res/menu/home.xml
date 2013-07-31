@@ -7,8 +7,13 @@
         android:title="@string/title_activity_new_category"/>
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
+        android:icon="@drawable/ic_settings"
+        android:showAsAction="ifRoom"
         android:title="@string/action_settings"/>
+    <item
+        android:id="@+id/action_backup_restore"
+        android:icon="@drawable/ic_backup_restore"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_backup_restore"/>
 
 </menu>
