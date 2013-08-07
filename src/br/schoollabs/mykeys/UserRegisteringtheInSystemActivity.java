@@ -15,11 +15,16 @@ import br.schoollabs.utils.Validator;
 
 public class UserRegisteringTheInSystemActivity extends Activity {
 	private DataDaoSqLite dataDaoSqLite = new DataDaoSqLite();
+	private Data ownerName;
+	private Data email;
+	private Data password;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_registering_the_in_system);
+		
+		loadInput();
 	}
 
 	@Override
@@ -40,7 +45,7 @@ public class UserRegisteringTheInSystemActivity extends Activity {
 	private void validateFields() {
 		if (Validator.validateNotNull((EditText) findViewById(R.id.editHomeRegisterNome), "Preencha o Nome!")
 				&& Validator.validateNotNull((EditText) findViewById(R.id.editHomeRegisterEmail), "Preencha o E-mail!")
-				&& Validator.validateNotNull((EditText) findViewById(R.id.editHomeRegisterSenha), "Preencha a Senha!")) {
+				&& Validator.validateLength((EditText) findViewById(R.id.editHomeRegisterSenha), "A Senha deve ter 4 caracteres!", 4)) {
 			if (registerSystemUser()) {
 				finish();
 				
@@ -58,30 +63,54 @@ public class UserRegisteringTheInSystemActivity extends Activity {
 	private Boolean registerSystemUser() {
 		Type type = ((TypeDaoSqLite) dataDaoSqLite.instanceDaoSqLite("Type")).find("name", "System");
 
-		Data dataNome = new Data();
-		dataNome.setType(type);
-		dataNome.setName("OwnerName");
-		dataNome.setContent(((EditText) findViewById(R.id.editHomeRegisterNome)).getText().toString());
+		ownerName.setType(type);
+		ownerName.setName("OwnerName");
+		ownerName.setContent(((EditText) findViewById(R.id.editHomeRegisterNome)).getText().toString());
 
-		Data dataEmail = new Data();
-		dataEmail.setType(type);
-		dataEmail.setName("Email");
-		dataEmail.setContent(((EditText) findViewById(R.id.editHomeRegisterEmail)).getText().toString());
+		email.setType(type);
+		email.setName("Email");
+		email.setContent(((EditText) findViewById(R.id.editHomeRegisterEmail)).getText().toString());
 
-		Data dataSenha = new Data();
-		dataSenha.setName("Password");
-		dataSenha.setType(type);
-		dataSenha.setContent(((EditText) findViewById(R.id.editHomeRegisterSenha)).getText().toString());
+		password.setName("Password");
+		password.setType(type);
+		password.setContent(((EditText) findViewById(R.id.editHomeRegisterSenha)).getText().toString());
 
 		try {
 			// Salvar objetos
-			dataDaoSqLite.save(dataNome);
-			dataDaoSqLite.save(dataEmail);
-			dataDaoSqLite.save(dataSenha);
+			dataDaoSqLite.save(ownerName);
+			dataDaoSqLite.save(email);
+			dataDaoSqLite.save(password);
 			return true;
 
 		} catch (Exception e) {
 			return false;
+		}
+	}
+	
+	private void loadInput(){
+		ownerName = dataDaoSqLite.findOwnerName();
+		email = dataDaoSqLite.findEmail();
+		password = dataDaoSqLite.findPWD();
+		
+		if(ownerName == null){
+			ownerName = new Data();
+		}
+		else{
+			((EditText) findViewById(R.id.editHomeRegisterNome)).setText(ownerName.getContent());
+		}
+		
+		if(email == null){
+			email = new Data();
+		}
+		else{
+			((EditText) findViewById(R.id.editHomeRegisterEmail)).setText(email.getContent());
+		}
+		
+		if(password == null){
+			password = new Data();
+		}
+		else{
+			((EditText) findViewById(R.id.editHomeRegisterSenha)).setText(password.getContent());
 		}
 	}
 }

@@ -226,4 +226,34 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 		}
 		return null;
 	}
+
+	@Override
+	public List<Data> findBackup() {
+		List<Data> models = new ArrayList<Data>();
+		Cursor cursor = database.rawQuery("SELECT d.* FROM Data d INNER JOIN Type t ON t.id = d.type WHERE t.name = 'System' AND d.name='Backup'", null);
+
+		while (cursor.moveToNext()) {
+			Data data = newCursor(cursor);
+
+			data.getRegistries().addAll(((RegistryDaoSqLite) instanceDaoSqLite("Registry")).findAll("data", data.getId().toString()));
+			models.add(data);
+		}
+
+		return models;
+	}
+
+	@Override
+	public List<Data> findSettings() {
+		List<Data> models = new ArrayList<Data>();
+		Cursor cursor = database.rawQuery("SELECT d.* FROM Data d INNER JOIN Type t ON t.id = d.type WHERE t.name = 'System' AND (d.name='OwnerName' OR d.name='Email' OR d.name='Password')", null);
+
+		while (cursor.moveToNext()) {
+			Data data = newCursor(cursor);
+
+			data.getRegistries().addAll(((RegistryDaoSqLite) instanceDaoSqLite("Registry")).findAll("data", data.getId().toString()));
+			models.add(data);
+		}
+
+		return models;
+	}
 }

@@ -1,18 +1,10 @@
 package br.schoollabs.mykeys;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -42,8 +34,6 @@ public class HomeActivity extends ListActivity {
 		registerForContextMenu(this.getListView());
 
 		findCategories();
-
-		DataDaoSqLite dataDaoSqLite = new DataDaoSqLite();
 		((TextView) findViewById(R.id.labelHomeUsername)).setText((dataDaoSqLite.findOwnerName()).getContent());
 	}
 
@@ -78,15 +68,10 @@ public class HomeActivity extends ListActivity {
 			return true;
 		}
 		if (item.getItemId() == R.id.action_settings) {
-			Utils.startActivity(this, SettingsActivity.class);
-			// try {
-			// backupDatabase();
-			// } catch (IOException e) {
-			// e.printStackTrace();
-			// }
+			Utils.startActivity(this, UserRegisteringTheInSystemActivity.class);
 			return true;
 		}
-		if(item.getItemId() == R.id.action_backup_restore){
+		if (item.getItemId() == R.id.action_backup_restore) {
 			Utils.startActivity(this, BackupRestoreActivity.class);
 		}
 		return super.onOptionsItemSelected(item);
@@ -157,39 +142,6 @@ public class HomeActivity extends ListActivity {
 		listAdapter.clear();
 		for (Data data : dataDaoSqLite.findCategories()) {
 			listAdapter.add(data);
-		}
-	}
-
-	@SuppressLint("SdCardPath")
-	public static void backupDatabase() throws IOException {
-		boolean success = true;
-		File file = null;
-		file = new File(Environment.getExternalStorageDirectory() + "/MyKeys");
-
-		if (file.exists()) {
-			success = true;
-		} else {
-			success = file.mkdir();
-		}
-
-		if (success) {
-			String inFileName = "/data/data/br.schoollabs.mykeys/databases/mykeys.db";
-			File dbFile = new File(inFileName);
-			FileInputStream fis = new FileInputStream(dbFile);
-
-			String outFileName = Environment.getExternalStorageDirectory() + "/MyKeys/mykeys.bak";
-			// Open the empty db as the output stream
-			OutputStream output = new FileOutputStream(outFileName);
-			// transfer bytes from the inputfile to the outputfile
-			byte[] buffer = new byte[1024];
-			int length;
-			while ((length = fis.read(buffer)) > 0) {
-				output.write(buffer, 0, length);
-			}
-
-			output.flush();
-			output.close();
-			fis.close();
 		}
 	}
 }

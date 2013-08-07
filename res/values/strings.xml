@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Nome da Aplicacao -->
+    <!-- Nomes para Aplicacao -->
     <string name="app_name">Minhas Senhas</string>
+    <string name="ownerName">Usuário</string>
+    <string name="email">E-mail</string>    
+    <string name="password">Senha</string>
 
     <!-- Acoes da Aplicacao -->
     <string name="action_settings">Configurações</string>
@@ -50,5 +53,7 @@
 
     <!-- Tela de Backup e Restore -->
     <string name="title_activity_backup_restore">Cópia de Segurança e Restauração</string>
+    <string name="labelBackupSelecione">Selecione um Backup para restaurar:</string>
+    <string name="labelBackupDataCompl">Data da criação: </string>
 
 </resources>

@@ -16,42 +16,43 @@ public class DataSistema {
 	private static final SimpleDateFormat dataTimePattern = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	private static final SimpleDateFormat dataTimeSecondsPattern = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	private static final SimpleDateFormat dataTimeSecondsMilisPattern = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:SSS");
+	private static final SimpleDateFormat dataTimeSecondsMilisPatternNotCaracter = new SimpleDateFormat("ddMMyyyyHHmmssSSS");
 
 	/**
 	 * Compara a data de aniversario com a data atual, verificando com margem de diasPos para frente
+	 * 
 	 * @param dtNasc
 	 * @param diasPos
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
 	static public boolean compareAniversario(Date dtNasc, int diasPos) {
-		if(dtNasc==null)
+		if (dtNasc == null)
 			return false;
-		
+
 		Date dataAtual = new Date();
-		
+
 		Date dtNascN = new Date(dtNasc.getTime());
 		dtNascN.setYear(dataAtual.getYear());
-		
+
 		long diff = DateDiffUtil.dateDiff(dtNascN, dataAtual, Units.DAY);
-		return (diff>=0 && diff<=diasPos);
+		return (diff >= 0 && diff <= diasPos);
 	}
-	
-	
+
 	@SuppressWarnings("deprecation")
 	static public boolean compareDDMMYYYY(Date d1, Date d2) {
-		if(d1==null || d2==null)
+		if (d1 == null || d2 == null)
 			return false;
-		
-		if(d1.getDay()!=d2.getDay())
+
+		if (d1.getDay() != d2.getDay())
 			return false;
-		if(d1.getMonth()!=d2.getMonth())
+		if (d1.getMonth() != d2.getMonth())
 			return false;
-		if(d1.getYear()!=d2.getYear())
+		if (d1.getYear() != d2.getYear())
 			return false;
 		return true;
 	}
-	
+
 	static public Date getDate(String dateDDMMYYYY) {
 		try {
 			return new SimpleDateFormat("dd/MM/yyyy").parse(dateDDMMYYYY);
@@ -59,11 +60,12 @@ public class DataSistema {
 			return null;
 		}
 	}
-	
-	
+
 	/**
 	 * Retorna um objeto Date.
-	 * @param date formato 10/10/2010 10:10:10
+	 * 
+	 * @param date
+	 *            formato 10/10/2010 10:10:10
 	 * @return
 	 */
 	static public Date getDateHourMinSecs(String date) {
@@ -72,7 +74,7 @@ public class DataSistema {
 		} catch (Exception e) {
 			return null;
 		}
-	}	
+	}
 
 	static public Date getInfiniteDate() {
 		return getDate("12/31/3000");
@@ -81,6 +83,11 @@ public class DataSistema {
 	static public String getDataTimeCorrenteDDMMYYYYHHMM() {
 		return dataTimePattern.format(new Date());
 	}
+
+	static public String getDataTimeCorrenteDDMMYYYYHHMMSSSSS() {
+		return dataTimeSecondsMilisPatternNotCaracter.format(new Date());
+	}
+
 	static public String getDataCorrenteDDMMYYYY() {
 		Date dt = new Date();
 		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
@@ -91,7 +98,7 @@ public class DataSistema {
 		SimpleDateFormat sd = new SimpleDateFormat("ddMMyy");
 		return sd.format(dt);
 	}
-	
+
 	/**
 	 * Transforma uma String no formato dd/MM/yyyy HH:mm em data
 	 * 
@@ -102,8 +109,8 @@ public class DataSistema {
 		try {
 			return dataTimePattern.parse(dataHora);
 		} catch (ParseException e) {
-			return null;		
-		}		
+			return null;
+		}
 	}
 
 	/**
@@ -167,11 +174,11 @@ public class DataSistema {
 
 	static public int getDateYear() {
 		return Calendar.getInstance().get(Calendar.YEAR);
-//		Date dt = new Date();
-//		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-//		String datas = sd.format(dt);
-//
-//		return Integer.parseInt(datas.substring(6, 10));
+		// Date dt = new Date();
+		// SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+		// String datas = sd.format(dt);
+		//
+		// return Integer.parseInt(datas.substring(6, 10));
 	}
 
 	static public int getDateMonth() {
@@ -216,16 +223,16 @@ public class DataSistema {
 		Timestamp tm = new Timestamp(dt.getTime());
 		return tm;
 	}
-	
-	
+
 	/**
 	 * Transforma uma data no formato dd/MM/yyyy HH:mm:ss:SSS
+	 * 
 	 * @param dataddMMyyyyHHmmss
 	 * @return
 	 */
 	static public Timestamp parseStringTimestampMilis(String dataddMMyyyyHHmmss) {
 		// "dd/MM/yyyy HH:mm:ss"
-		
+
 		Date dt = new Date();
 		try {
 			dt = dataTimeSecondsMilisPattern.parse(dataddMMyyyyHHmmss);
@@ -234,7 +241,7 @@ public class DataSistema {
 		}
 		Timestamp tm = new Timestamp(dt.getTime());
 		return tm;
-	}	
+	}
 
 	static public String parseDateString(Date data) {
 		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -250,6 +257,7 @@ public class DataSistema {
 			throw new RuntimeException(e);
 		}
 	}
+
 	static public Date parseStringToDate2(String data) {
 		try {
 			SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
@@ -286,13 +294,13 @@ public class DataSistema {
 		c.add(Calendar.DAY_OF_MONTH, dia);
 		return new Date(c.getTimeInMillis());
 	}
-	
+
 	static public Date addSegundo(Date tm, int segundo) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(tm);
 		c.add(Calendar.SECOND, segundo);
 		return new Date(c.getTimeInMillis());
-	}	
+	}
 
 	static public Date addAno(Date tm, int ano) {
 		Calendar c = Calendar.getInstance();
@@ -311,9 +319,7 @@ public class DataSistema {
 	}
 
 	/**
-	 * Converte uma String para um objeto Date. Caso a String seja vazia ou
-	 * nula, retorna null - para facilitar em casos onde formularios podem ter
-	 * campos de datas vazios.
+	 * Converte uma String para um objeto Date. Caso a String seja vazia ou nula, retorna null - para facilitar em casos onde formularios podem ter campos de datas vazios.
 	 * 
 	 * @param data
 	 *            String no formato dd/MM/yyyy a ser formatada
@@ -334,26 +340,26 @@ public class DataSistema {
 		}
 		return date;
 	}
-	
+
 	/**
-	 * Converte um Long para uma String no formato de minutos mm:ss. 
+	 * Converte um Long para uma String no formato de minutos mm:ss.
 	 * 
 	 * @param minutos
 	 *            Long com os minutos a ser formatado
 	 * @return String formatada mm:ss
 	 */
-	public static String segundoToMinuto(Long segundos){
+	public static String segundoToMinuto(Long segundos) {
 		String saida;
-		if(segundos>0){
+		if (segundos > 0) {
 			Long divisao = segundos / 60;
-			Long resto = segundos % 60; 
+			Long resto = segundos % 60;
 			saida = divisao + ":";
-			if(resto > 0){
+			if (resto > 0) {
 				saida = saida + resto;
-			}else{
+			} else {
 				saida = saida + "00";
 			}
-		}else{
+		} else {
 			saida = "0:00";
 		}
 		return saida;
@@ -366,7 +372,7 @@ public class DataSistema {
 		c.set(Calendar.MINUTE, minuto);
 		return c.getTime();
 	}
-	
+
 	/**
 	 * Retorna o ultimo dia do mes/ano
 	 * 
@@ -380,9 +386,10 @@ public class DataSistema {
 		cal.set(Calendar.MONTH, mes - 1);
 		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
-	
+
 	/**
 	 * Retorna uma data com o ultimo dia do mes/ano informado, com hora 23:59:59
+	 * 
 	 * @param ano
 	 * @param mes
 	 * @return
@@ -400,6 +407,7 @@ public class DataSistema {
 
 	/**
 	 * Retorna uma data com o primeiro dia do mes/ano informado, com hora 00:00:00
+	 * 
 	 * @param ano
 	 * @param mes
 	 * @return
@@ -412,95 +420,91 @@ public class DataSistema {
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-		return cal.getTime();	
+		return cal.getTime();
 	}
-	
+
 	public static Date getUltimoDiaSemanaDate(int ano, int mes, int semana) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, ano);
 		cal.set(Calendar.MONTH, mes - 1);
-		
+
 		cal.setFirstDayOfWeek(Calendar.SUNDAY);
 		cal.set(Calendar.WEEK_OF_MONTH, semana);
-		cal.set(Calendar.DAY_OF_WEEK, 7);		
-		//cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-		
+		cal.set(Calendar.DAY_OF_WEEK, 7);
+		// cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+
 		cal.set(Calendar.HOUR_OF_DAY, 23);
 		cal.set(Calendar.MINUTE, 59);
 		cal.set(Calendar.SECOND, 59);
 		return cal.getTime();
 	}
-	
+
 	public static Date getPrimeiroDiaSemanaDate(int ano, int mes, int semana) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, ano);
 		cal.set(Calendar.MONTH, mes - 1);
-		
-		
+
 		cal.setFirstDayOfWeek(Calendar.SUNDAY);
 		cal.set(Calendar.WEEK_OF_MONTH, semana);
 		cal.set(Calendar.DAY_OF_WEEK, 1);
 
-		
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-		return cal.getTime();	
+		return cal.getTime();
 	}
 
-	
 	public static Date getPrimeiroDiaSemanaDate(int ano, int semanaDoAno) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, ano);
 		cal.set(Calendar.WEEK_OF_YEAR, semanaDoAno);
-		
-		
+
 		cal.setFirstDayOfWeek(Calendar.SUNDAY);
 		cal.set(Calendar.DAY_OF_WEEK, 1);
 
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-		return cal.getTime();	
+		return cal.getTime();
 	}
-	
+
 	public static Date getUltimoDiaSemanaDate(int ano, int semanaDoAno) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, ano);
-		
+
 		cal.setFirstDayOfWeek(Calendar.SUNDAY);
 		cal.set(Calendar.WEEK_OF_YEAR, semanaDoAno);
-		cal.set(Calendar.DAY_OF_WEEK, 7);		
-		
+		cal.set(Calendar.DAY_OF_WEEK, 7);
+
 		cal.set(Calendar.HOUR_OF_DAY, 23);
 		cal.set(Calendar.MINUTE, 59);
 		cal.set(Calendar.SECOND, 59);
 		return cal.getTime();
 	}
-	
+
 	public static Date getDataInicio(int ano, int mes, int semanaDoMes, int semanaDoAno) {
-		if(semanaDoMes > 0) { //Busca pela semana do ano/mes
+		if (semanaDoMes > 0) { // Busca pela semana do ano/mes
 			return DataSistema.getPrimeiroDiaSemanaDate(ano, mes, semanaDoMes);
-		}else if(semanaDoAno > 0){ //Busca pela semana do ano
+		} else if (semanaDoAno > 0) { // Busca pela semana do ano
 			return DataSistema.getPrimeiroDiaSemanaDate(ano, semanaDoAno);
-		}else{//Busca pelo ano/mes
+		} else {// Busca pelo ano/mes
 			return DataSistema.getPrimeiroDiaMesDate(ano, mes);
 		}
 	}
-	
+
 	public static Date getDataFim(int ano, int mes, int semanaDoMes, int semanaDoAno) {
-		if(semanaDoMes > 0) { //Busca pela semana do ano/mes
+		if (semanaDoMes > 0) { // Busca pela semana do ano/mes
 			return DataSistema.getUltimoDiaSemanaDate(ano, mes, semanaDoMes);
-		}else if(semanaDoAno > 0){ //Busca pela semana do ano
+		} else if (semanaDoAno > 0) { // Busca pela semana do ano
 			return DataSistema.getUltimoDiaSemanaDate(ano, semanaDoAno);
-		}else{//Busca pelo ano/mes
+		} else {// Busca pelo ano/mes
 			return DataSistema.getUltimoDiaMesDate(ano, mes);
 		}
 	}
-	
-	
+
 	/**
 	 * Retorna a semana do ano em que a data se encontra
+	 * 
 	 * @param data
 	 * @return
 	 */
@@ -509,21 +513,19 @@ public class DataSistema {
 		c.setTime(data);
 		return c.get(Calendar.WEEK_OF_YEAR);
 	}
-	
+
 	public static int getSemanaAtualDoAno() {
 		return getSemanaDoAno(new Date());
 	}
-	
 
-	@SuppressWarnings("unused")
 	public static void main(String args[]) {
-		//System.out.println(getPrimeiroDiaSemanaDate(2013, 4, 5));
-		//System.out.println(getUltimoDiaSemanaDate(2013, 4, 5));
-		int semanaAtual = getSemanaDoAno(new Date());
-		System.out.println(getDataInicio(2013, 0, 0, 16));
-		//System.out.println(getUltimoDiaSemanaDate(2013, semanaAtual));
+		// System.out.println(getPrimeiroDiaSemanaDate(2013, 4, 5));
+		// System.out.println(getUltimoDiaSemanaDate(2013, 4, 5));
+		// int semanaAtual = getSemanaDoAno(new Date());
+		// System.out.println(getDataInicio(2013, 0, 0, 16));
+		// System.out.println(getUltimoDiaSemanaDate(2013, semanaAtual));
+		System.out.println(getDataTimeCorrenteDDMMYYYYHHMMSSSSS());
 
-		
-		//System.out.println(semanaAtual);
+		// System.out.println(semanaAtual);
 	}
 }

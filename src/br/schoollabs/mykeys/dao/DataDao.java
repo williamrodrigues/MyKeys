@@ -31,4 +31,8 @@ public interface DataDao extends Dao<Data> {
 	public Boolean saveKey(Data key);
 
 	public Integer findMaxOrdem();
+	
+	public List<Data> findBackup();
+	
+	public List<Data> findSettings();
 }
