@@ -7,6 +7,7 @@ import java.io.InputStream;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +40,7 @@ public class Utils {
 		intent.putExtra(nameParam, valuaParam);
 		activity.startActivity(intent);
 	}
-	
+
 	public static String getTextFromEditText(Activity activity, int inputTextId) {
 		return ((EditText) activity.findViewById(inputTextId)).getText().toString();
 	}
@@ -47,9 +48,35 @@ public class Utils {
 	public static void setTextEditText(Activity activity, int inputTextId, String text) {
 		((EditText) activity.findViewById(inputTextId)).setText(text);
 	}
-	
-	public static void msg(Activity activity, String msg){
+
+	public static void msg(Activity activity, String msg) {
 		Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+	}
+
+	public static void setMaxLength(EditText view, int length) {
+		InputFilter curFilters[];
+		InputFilter.LengthFilter lengthFilter;
+		int idx;
+
+		lengthFilter = new InputFilter.LengthFilter(length);
+
+		curFilters = view.getFilters();
+		if (curFilters != null) {
+			for (idx = 0; idx < curFilters.length; idx++) {
+				if (curFilters[idx] instanceof InputFilter.LengthFilter) {
+					curFilters[idx] = lengthFilter;
+					return;
+				}
+			}
+
+			// since the length filter was not part of the list, but
+			// there are filters, then add the length filter
+			InputFilter newFilters[] = new InputFilter[curFilters.length];
+			System.arraycopy(curFilters, 0, newFilters, 0, curFilters.length);
+			newFilters[curFilters.length] = lengthFilter;
+		} else {
+			view.setFilters(new InputFilter[] { lengthFilter });
+		}
 	}
 
 	public static String streamToString(InputStream is) throws IOException {

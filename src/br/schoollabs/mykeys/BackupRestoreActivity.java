@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -20,28 +21,38 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import br.schoollabs.mykeys.dao.sqlite.DataDaoSqLite;
-import br.schoollabs.mykeys.dao.sqlite.TypeDaoSqLite;
 import br.schoollabs.mykeys.model.Data;
 import br.schoollabs.utils.DataSistema;
 import br.schoollabs.utils.Utils;
 
 public class BackupRestoreActivity extends ListActivity {
-	private DataDaoSqLite dataDaoSqLite;
 	private BackupRestoreAdapter listAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_backup_restore);
-
-		dataDaoSqLite = new DataDaoSqLite();
+		
 		listAdapter = new BackupRestoreAdapter(this);
 		setListAdapter(listAdapter);
 
-		registerForContextMenu(this.getListView());
+		registerForContextMenu(this.getListView());		
+
+		File arq = new File(Environment.getExternalStorageDirectory() + "/MyKeys/");
+		boolean b = arq.mkdir();
+		System.out.println(b ? "Diretório criado com sucesso." : "Diretório já existe");
 
 		findBackup();
+		String dir = Environment.getExternalStorageDirectory() + "/MyKeys/";
+
+		File diretorio = new File(dir);
+		File fList[] = diretorio.listFiles();
+
+		System.out.println("Numero de arquivos no diretorio : " + fList.length);
+
+		for (int i = 0; i < fList.length; i++) {
+			System.out.println(fList[i].getName() + " " + new Date(fList[i].lastModified()));
+		}
 	}
 
 	@Override
@@ -53,19 +64,14 @@ public class BackupRestoreActivity extends ListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_backup) {
-
 			try {
-				Data data = new Data();
-				data.setContent(backupDatabase());
-				data.setName("Backup");
-				data.setType(((TypeDaoSqLite) dataDaoSqLite.instanceDaoSqLite("Type")).find("name", "System"));
-
-				dataDaoSqLite.save(data);
+				backupDatabase(DataSistema.getDataTimeCorrenteDDMMYYYYHHMMSSSSS() + ".bak");
 
 				Utils.msg(this, "Backup criado com sucesso!");
 
 				findBackup();
 			} catch (IOException e) {
+				Utils.msg(this, "Erro ao criar o Backup!");
 				e.printStackTrace();
 			}
 
@@ -96,7 +102,12 @@ public class BackupRestoreActivity extends ListActivity {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					dataDaoSqLite.remove(backupDelete);
+					if(removeBackup(backupDelete)){
+						Utils.msg(BackupRestoreActivity.this, "Backup excluído com sucesso!");
+					}
+					else{
+						Utils.msg(BackupRestoreActivity.this, "Erro excluir backup!");
+					}
 
 					findBackup();
 				}
@@ -132,6 +143,8 @@ public class BackupRestoreActivity extends ListActivity {
 				try {
 					restoreDatabase(data);
 					
+					Utils.msg(BackupRestoreActivity.this, "Backup restaurado com sucesso!");
+
 					findBackup();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -147,6 +160,56 @@ public class BackupRestoreActivity extends ListActivity {
 		});
 
 		dialog.show();
+	}
+
+	private void findBackup() {
+		listAdapter.clear();
+
+		File diretorio = new File(Environment.getExternalStorageDirectory() + "/MyKeys/");
+		File fList[] = diretorio.listFiles();
+
+		System.out.println("Numero de backups do sistema: " + fList.length);
+
+		for (int i = 0; i < fList.length; i++) {
+			Data data = new Data();
+			data.setContent(fList[i].getName());
+			data.setDate(new Date(fList[i].lastModified()));
+
+			listAdapter.add(data);
+		}
+	}
+
+	@SuppressLint("SdCardPath")
+	private void backupDatabase(String nameFile) throws IOException {
+		boolean success = true;
+		File file = null;
+		file = new File(Environment.getExternalStorageDirectory() + "/MyKeys");
+
+		if (file.exists()) {
+			success = true;
+		} else {
+			success = file.mkdir();
+		}
+
+		if (success) {
+			String inFileName = "/data/data/br.schoollabs.mykeys/databases/mykeys.db";
+			File dbFile = new File(inFileName);
+			FileInputStream fis = new FileInputStream(dbFile);
+
+			String outFileName = Environment.getExternalStorageDirectory() + "/MyKeys/" + nameFile;
+			// Open the empty db as the output stream
+			OutputStream output = new FileOutputStream(outFileName);
+			// transfer bytes from the inputfile to the outputfile
+			byte[] buffer = new byte[1024];
+			int length;
+			while ((length = fis.read(buffer)) > 0) {
+				output.write(buffer, 0, length);
+			}
+
+			output.flush();
+			output.close();
+			fis.close();
+		}
 	}
 
 	@SuppressLint("SdCardPath")
@@ -169,49 +232,19 @@ public class BackupRestoreActivity extends ListActivity {
 		output.close();
 		fis.close();
 	}
+	
+	private Boolean removeBackup(Data data){
+		File diretorio = new File(Environment.getExternalStorageDirectory() + "/MyKeys/");
+		File fList[] = diretorio.listFiles();
 
-	private void findBackup() {
-		listAdapter.clear();
-		for (Data data : dataDaoSqLite.findBackup()) {
-			listAdapter.add(data);
-		}
-	}
+		System.out.println("Numero de backups do sistema: " + fList.length);
 
-	@SuppressLint("SdCardPath")
-	private String backupDatabase() throws IOException {
-		String nameFile = "";
-		boolean success = true;
-		File file = null;
-		file = new File(Environment.getExternalStorageDirectory() + "/MyKeys");
-
-		if (file.exists()) {
-			success = true;
-		} else {
-			success = file.mkdir();
-		}
-
-		if (success) {
-			String inFileName = "/data/data/br.schoollabs.mykeys/databases/mykeys.db";
-			File dbFile = new File(inFileName);
-			FileInputStream fis = new FileInputStream(dbFile);
-
-			nameFile = DataSistema.getDataTimeCorrenteDDMMYYYYHHMMSSSSS() + ".bak";
-
-			String outFileName = Environment.getExternalStorageDirectory() + "/MyKeys/" + nameFile;
-			// Open the empty db as the output stream
-			OutputStream output = new FileOutputStream(outFileName);
-			// transfer bytes from the inputfile to the outputfile
-			byte[] buffer = new byte[1024];
-			int length;
-			while ((length = fis.read(buffer)) > 0) {
-				output.write(buffer, 0, length);
+		for (int i = 0; i < fList.length; i++) {
+			if(data.getContent().equals(fList[i].getName())){
+				return fList[i].delete();
 			}
-
-			output.flush();
-			output.close();
-			fis.close();
 		}
-
-		return nameFile;
+		
+		return false;
 	}
 }

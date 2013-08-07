@@ -32,7 +32,5 @@ public interface DataDao extends Dao<Data> {
 
 	public Integer findMaxOrdem();
 	
-	public List<Data> findBackup();
-	
 	public List<Data> findSettings();
 }

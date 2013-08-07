@@ -18,13 +18,14 @@ public class UserRegisteringTheInSystemActivity extends Activity {
 	private Data ownerName;
 	private Data email;
 	private Data password;
+	private Boolean novo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_registering_the_in_system);
-		
-		loadInput();
+
+		novo = loadInput();
 	}
 
 	@Override
@@ -32,7 +33,7 @@ public class UserRegisteringTheInSystemActivity extends Activity {
 		getMenuInflater().inflate(R.menu.user_registering_the_in_system, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_new_user_system_save) {
@@ -48,12 +49,16 @@ public class UserRegisteringTheInSystemActivity extends Activity {
 				&& Validator.validateLength((EditText) findViewById(R.id.editHomeRegisterSenha), "A Senha deve ter 4 caracteres!", 4)) {
 			if (registerSystemUser()) {
 				finish();
-				
-				Utils.startActivity(this, MainActivity.class);
-				
-				Toast.makeText(this, "Usuário cadastrado no sistema!", Toast.LENGTH_SHORT).show();
-			}
-			else{
+
+				if(novo){
+					Utils.startActivity(this, MainActivity.class);
+					
+					Utils.msg(this, "Usuário cadastrado no sistema!");
+				}
+				else{
+					Utils.msg(this, "Dados alterados com sucesso!");
+				}
+			} else {
 				Toast.makeText(this, "Erro ao cadastrar usuário!", Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -86,31 +91,26 @@ public class UserRegisteringTheInSystemActivity extends Activity {
 			return false;
 		}
 	}
-	
-	private void loadInput(){
+
+	private Boolean loadInput() {
 		ownerName = dataDaoSqLite.findOwnerName();
 		email = dataDaoSqLite.findEmail();
 		password = dataDaoSqLite.findPWD();
-		
-		if(ownerName == null){
+
+		if (ownerName == null && email == null && password == null) {
 			ownerName = new Data();
-		}
-		else{
-			((EditText) findViewById(R.id.editHomeRegisterNome)).setText(ownerName.getContent());
-		}
-		
-		if(email == null){
 			email = new Data();
-		}
-		else{
-			((EditText) findViewById(R.id.editHomeRegisterEmail)).setText(email.getContent());
-		}
-		
-		if(password == null){
 			password = new Data();
-		}
-		else{
+			
+			return true;
+		} else {
+			((EditText) findViewById(R.id.editHomeRegisterNome)).setText(ownerName.getContent());
+
+			((EditText) findViewById(R.id.editHomeRegisterEmail)).setText(email.getContent());
+
 			((EditText) findViewById(R.id.editHomeRegisterSenha)).setText(password.getContent());
+			
+			return false;
 		}
 	}
 }

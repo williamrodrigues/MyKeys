@@ -1,6 +1,5 @@
 package br.schoollabs.mykeys;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -88,7 +87,7 @@ public class MainActivity extends FragmentActivity {
 
 		if (pwd == null) {
 			finish();
-			
+
 			Utils.startActivity(this, UserRegisteringTheInSystemActivity.class);
 		}
 	}
@@ -206,8 +205,7 @@ public class MainActivity extends FragmentActivity {
 		if (pwd != null && pwd.getContent().equals(pwdSenha)) {
 			finish();
 
-			Intent intent = new Intent(this, HomeActivity.class);
-			startActivity(intent);
+			 Utils.startActivity(this, HomeActivity.class);
 		} else {
 			Toast.makeText(this, "Senha Invalida!", Toast.LENGTH_SHORT).show();
 			clearEdits();

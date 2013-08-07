@@ -5,6 +5,8 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -12,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import br.schoollabs.mykeys.dao.sqlite.DataDaoSqLite;
@@ -68,7 +72,29 @@ public class HomeActivity extends ListActivity {
 			return true;
 		}
 		if (item.getItemId() == R.id.action_settings) {
-			Utils.startActivity(this, UserRegisteringTheInSystemActivity.class);
+			AlertDialog.Builder editalert = new AlertDialog.Builder(this);
+
+			editalert.setTitle("Digite sua senha:");
+
+			final EditText input = new EditText(this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+			input.setLayoutParams(lp);
+			input.setFilters(new InputFilter[] { new InputFilter.LengthFilter(4) });
+			input.setInputType(InputType.TYPE_CLASS_NUMBER);
+			editalert.setView(input);
+
+			editalert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					if ((dataDaoSqLite.findPWD()).getContent().equals(input.getText().toString())) {
+						Utils.startActivity(HomeActivity.this, UserRegisteringTheInSystemActivity.class);
+					} else {
+						Utils.msg(HomeActivity.this, "Senha inválida!");
+					}
+				}
+			});
+
+			editalert.show();
+
 			return true;
 		}
 		if (item.getItemId() == R.id.action_backup_restore) {

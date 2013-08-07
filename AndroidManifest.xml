@@ -42,18 +42,11 @@
             android:label="@string/title_activity_new_category" />
         <activity
             android:name="br.schoollabs.mykeys.SettingsActivity"
-            android:label="@string/action_settings" >
-            <intent-filter>
-                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <!-- created by WilliamRodrigues at 2013-07-29 10:24:51 -->
+            android:label="@string/action_settings" />
         <activity
             android:name="br.schoollabs.mykeys.BackupRestoreActivity"
-            android:label="@string/title_activity_backup_restore" >
-        </activity>
+            android:label="@string/title_activity_backup_restore" />
+        <!-- created by WilliamRodrigues at 2013-07-29 10:24:51 -->
     </application>
 
 </manifest>
