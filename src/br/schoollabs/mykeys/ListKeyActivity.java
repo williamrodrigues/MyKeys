@@ -1,11 +1,9 @@
 package br.schoollabs.mykeys;
 
-import br.schoollabs.mykeys.dao.sqlite.DataDaoSqLite;
-import br.schoollabs.mykeys.model.Data;
-import br.schoollabs.utils.Utils;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -13,8 +11,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
+import android.widget.TextView;
+import br.schoollabs.mykeys.dao.sqlite.DataDaoSqLite;
+import br.schoollabs.mykeys.model.Data;
+import br.schoollabs.utils.Utils;
 
 public class ListKeyActivity extends ListActivity {
 	private ListKeyAdapter listKeyAdapter;
@@ -28,6 +30,8 @@ public class ListKeyActivity extends ListActivity {
 		dataDaoSqLite = new DataDaoSqLite();
 		listKeyAdapter = new ListKeyAdapter(this);
 		setListAdapter(listKeyAdapter);
+
+		this.getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 		registerForContextMenu(this.getListView());
 
@@ -106,6 +110,20 @@ public class ListKeyActivity extends ListActivity {
 		default:
 			return super.onContextItemSelected(item);
 		}
+	}
+
+	@SuppressWarnings("unused")
+	private int lastPosition = -1;
+	private View selectedView;
+
+	@Override
+	public void onListItemClick(ListView parent, View v, int pos, long id) {
+		this.lastPosition = pos;
+		if (this.selectedView != null) {
+			this.selectedView.setBackgroundColor(Color.TRANSPARENT);
+		}
+		this.selectedView = v;
+		this.selectedView.setBackgroundColor(Color.argb(200, 0, 178, 238));
 	}
 
 	private void findKeys(String idCategory) {

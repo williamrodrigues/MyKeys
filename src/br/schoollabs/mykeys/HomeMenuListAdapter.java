@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import br.schoollabs.mykeys.model.Data;
 
-public class HomeMenuListAdapter  extends ArrayAdapter<Data> {
+public class HomeMenuListAdapter extends ArrayAdapter<Data> {
 	private Context context;
 
 	public HomeMenuListAdapter(Context context) {

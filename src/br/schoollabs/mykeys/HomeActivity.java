@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -72,7 +73,7 @@ public class HomeActivity extends ListActivity {
 			return true;
 		}
 		if (item.getItemId() == R.id.action_settings) {
-			AlertDialog.Builder editalert = new AlertDialog.Builder(this);
+			final AlertDialog.Builder editalert = new AlertDialog.Builder(this);
 
 			editalert.setTitle("Digite sua senha:");
 
@@ -81,12 +82,13 @@ public class HomeActivity extends ListActivity {
 			input.setLayoutParams(lp);
 			input.setFilters(new InputFilter[] { new InputFilter.LengthFilter(4) });
 			input.setInputType(InputType.TYPE_CLASS_NUMBER);
+			input.setTransformationMethod(PasswordTransformationMethod.getInstance());
 			editalert.setView(input);
 
 			editalert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
 					if ((dataDaoSqLite.findPWD()).getContent().equals(input.getText().toString())) {
-						Utils.startActivity(HomeActivity.this, UserRegisteringTheInSystemActivity.class);
+						Utils.startActivity(HomeActivity.this, SettingsActivity.class);
 					} else {
 						Utils.msg(HomeActivity.this, "Senha inválida!");
 					}

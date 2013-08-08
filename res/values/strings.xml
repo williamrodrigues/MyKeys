@@ -4,7 +4,7 @@
     <!-- Nomes para Aplicacao -->
     <string name="app_name">Minhas Senhas</string>
     <string name="ownerName">Usuário</string>
-    <string name="email">E-mail</string>    
+    <string name="email">E-mail</string>
     <string name="password">Senha</string>
 
     <!-- Acoes da Aplicacao -->
@@ -15,6 +15,7 @@
     <string name="action_delete">Excluir</string>
     <string name="action_save">Salvar</string>
     <string name="action_cancel">Cancelar</string>
+    <string name="action_ok">OK</string>
 
     <!-- Label generica -->
     <string name="labelNone"></string>
@@ -51,9 +52,15 @@
     <string name="labelNewCategoryObs">Obs: A ordem se refere a posição da categoria na tela inicial.</string>
     <string name="labelListKeyCategory">Categoria:</string>
 
+    <!-- Tela de Configurações do Sistema -->
+    <string name="title_activity_settings">Configurações do Sistema</string>
+
     <!-- Tela de Backup e Restore -->
     <string name="title_activity_backup_restore">Cópia de Segurança e Restauração</string>
     <string name="labelBackupSelecione">Selecione um Backup para restaurar:</string>
     <string name="labelBackupDataCompl">Data da criação: </string>
+    
+    <!-- Tela de Configurações de Categorias -->
+    <string name="title_activity_category_settings">Categorias</string>
 
 </resources>
