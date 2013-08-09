@@ -20,12 +20,6 @@
     <!-- Label generica -->
     <string name="labelNone"></string>
 
-    <!-- Tela de Resgistro de usuario para o sistema -->
-    <string name="title_activity_user_registering_the_in_system">Cadastro de usuário</string>
-    <string name="labelHomeRegisterNome">Nome:</string>
-    <string name="labelHomeRegisterEmail">E-mail:</string>
-    <string name="labelHomeRegisterSenha">Senha:</string>
-
     <!-- Tela Main -->
     <string name="labelMainDigiteSenha">Digite a Senha:</string>
 
@@ -45,15 +39,14 @@
     <!-- Tela de Listagem de Senhas -->
     <string name="title_activity_list_key">Senhas</string>
 
-    <!-- Tela de Cadatro de Categoria -->
-    <string name="title_activity_new_category">Cadastrar Categoria</string>
-    <string name="labelNewCategory">Nome da Categoria:</string>
-    <string name="labelNewCategoryOrdem">Ordem:</string>
-    <string name="labelNewCategoryObs">Obs: A ordem se refere a posição da categoria na tela inicial.</string>
-    <string name="labelListKeyCategory">Categoria:</string>
-
     <!-- Tela de Configurações do Sistema -->
     <string name="title_activity_settings">Configurações do Sistema</string>
+
+    <!-- Tela de Resgistro de usuario para o sistema -->
+    <string name="title_activity_user_registering_the_in_system">Usuário do Sistema</string>
+    <string name="labelHomeRegisterNome">Nome:</string>
+    <string name="labelHomeRegisterEmail">E-mail:</string>
+    <string name="labelHomeRegisterSenha">Senha:</string>
 
     <!-- Tela de Backup e Restore -->
     <string name="title_activity_backup_restore">Cópia de Segurança e Restauração</string>
@@ -62,5 +55,8 @@
     
     <!-- Tela de Configurações de Categorias -->
     <string name="title_activity_category_settings">Categorias</string>
-
+    <string name="labelCategory">Categoria:</string>
+    <string name="msgCategorySave">Categoria salva com sucesso!</string>
+    <string name="msgCategoryEdit">Categoria Alterada com sucesso!</string>
+    
 </resources>

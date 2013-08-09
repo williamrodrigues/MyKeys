@@ -228,17 +228,43 @@ public class DataDaoSqLite extends AbstractDaoSqLite<Data> implements DataDao {
 	}
 
 	@Override
-	public List<Data> findSettings() {
-		List<Data> models = new ArrayList<Data>();
-		Cursor cursor = database.rawQuery("SELECT d.* FROM Data d INNER JOIN Type t ON t.id = d.type WHERE t.name = 'System' AND (d.name='OwnerName' OR d.name='Email' OR d.name='Password')", null);
-
+	public Data findSettings() {
+		Cursor cursor = database.rawQuery("SELECT d.* FROM Data d INNER JOIN Type t ON t.id = d.type WHERE t.name = 'System' AND d.name='Settings'", null);
+		Data data = null;
 		while (cursor.moveToNext()) {
-			Data data = newCursor(cursor);
+			data = newCursor(cursor);
 
 			data.getRegistries().addAll(((RegistryDaoSqLite) instanceDaoSqLite("Registry")).findAll("data", data.getId().toString()));
-			models.add(data);
 		}
 
-		return models;
+		return data;
+	}
+
+	@Override
+	public Data findPreviousOrder(Integer ordem) {
+		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM Data WHERE name = 'Category' AND ordem = " + (ordem - 1), null);
+
+		Data data = null;
+		while (cursor.moveToNext()) {
+			data = newCursor(cursor);
+
+			data.getRegistries().addAll(((RegistryDaoSqLite) instanceDaoSqLite("Registry")).findAll("data", data.getId().toString()));
+		}
+
+		return data;
+	}
+
+	@Override
+	public Data findLaterOrder(Integer ordem) {
+		Cursor cursor = database.rawQuery("SELECT DISTINCT * FROM Data WHERE name = 'Category' AND ordem = " + (ordem + 1), null);
+
+		Data data = null;
+		while (cursor.moveToNext()) {
+			data = newCursor(cursor);
+
+			data.getRegistries().addAll(((RegistryDaoSqLite) instanceDaoSqLite("Registry")).findAll("data", data.getId().toString()));
+		}
+
+		return data;
 	}
 }

@@ -49,10 +49,14 @@ public class DatabaseConnection extends SQLiteOpenHelper {
 		
 		/* Dados do Sistema */
 		db.execSQL("INSERT INTO Type (id, name, content, date) VALUES (1, 'System', 'Dados do Sistema', '18-07-2013 10:40:00')");
+		db.execSQL("INSERT INTO Data (id, name, content, date, ordem, type) VALUES (1, 'Settings', 'Configurações do Sistema', '09-08-2013 10:20:00', 0, 1)");
+		db.execSQL("INSERT INTO Registry (id, name, content, date, data) VALUES (1, 'CategorySettings', 'Categorias', '09-08-2013 10:20:00', 1)");
+		db.execSQL("INSERT INTO Registry (id, name, content, date, data) VALUES (2, 'BackupRestore', 'Cópia de Segurança e Restauração', '09-08-2013 10:20:00', 1)");
+		db.execSQL("INSERT INTO Registry (id, name, content, date, data) VALUES (3, 'UserRegisteringTheInSystem', 'Usuário', '09-08-2013 10:20:00', 1)");
 	
 		/* Dados para Aplicação */
 		db.execSQL("INSERT INTO Type (id, name, content, date) VALUES (2, 'Data', 'Dados', '19-07-2013 15:00:00')");
-		db.execSQL("INSERT INTO Data (id, name, content, date, ordem, type) VALUES (1, 'Category', 'E-mail', '19-07-2013 15:20:00', 1, 2)");
+		db.execSQL("INSERT INTO Data (id, name, content, date, ordem, type) VALUES (2, 'Category', 'E-mail', '19-07-2013 15:20:00', 1, 2)");
 	}
 
 	@Override

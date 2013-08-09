@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import br.schoollabs.mykeys.model.Data;
-import br.schoollabs.utils.DataSistema;
 
-public class BackupRestoreAdapter extends ArrayAdapter<Data> {
+public class CategorySettingsAdapter extends ArrayAdapter<Data> {
 	private Context context;
 
-	public BackupRestoreAdapter(Context context) {
-		super(context, R.layout.linear_backup);
+	public CategorySettingsAdapter(Context context) {
+		super(context, R.layout.linear_category_settings);
 		this.context = context;
 	}
 
@@ -22,20 +21,15 @@ public class BackupRestoreAdapter extends ArrayAdapter<Data> {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		// View de renderização de cada item
-		View rowView = inflater.inflate(R.layout.linear_backup, parent, false);
+		View rowView = inflater.inflate(R.layout.linear_category_settings, parent, false);
 
 		// TextView para o titulo
-		TextView textView = (TextView) rowView.findViewById(R.id.labelBackup);
-
-		// TextView para a data
-		TextView textViewData = (TextView) rowView.findViewById(R.id.labelBackupContent);
+		TextView textView = (TextView) rowView.findViewById(R.id.labelLinearCategorySettingsCategory);
 
 		// Objeto clicado
 		Data data = this.getItem(position);
-		// Seta no TextView do Titulo
+		// Seta no TextView
 		textView.setText(data.getContent());
-		// Seta no TextView da Data
-		textViewData.setText(context.getString(R.string.labelBackupDataCompl) + " " + DataSistema.parseDateString(data.getDate()));
 
 		return rowView;
 	}

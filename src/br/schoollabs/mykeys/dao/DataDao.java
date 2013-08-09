@@ -31,6 +31,22 @@ public interface DataDao extends Dao<Data> {
 	public Boolean saveKey(Data key);
 
 	public Integer findMaxOrdem();
-	
-	public List<Data> findSettings();
+
+	public Data findSettings();
+
+	/**
+	 * Busca as categorias com as ordens maiores que o paramentro
+	 * 
+	 * @param ordem
+	 * @return
+	 */
+	public Data findPreviousOrder(Integer ordem);
+
+	/**
+	 * Busca as categorias com as ordens maiores que o paramentro
+	 * 
+	 * @param ordem
+	 * @return
+	 */
+	public Data findLaterOrder(Integer ordem);
 }

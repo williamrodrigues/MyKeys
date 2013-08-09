@@ -1,19 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/action_home_category_new"
-        android:icon="@drawable/ic_category_new"
-        android:showAsAction="ifRoom"
-        android:title="@string/title_activity_new_category"/>
+    
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings"
         android:showAsAction="ifRoom"
         android:title="@string/action_settings"/>
-    <item
-        android:id="@+id/action_backup_restore"
-        android:icon="@drawable/ic_backup_restore"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_backup_restore"/>
 
 </menu>

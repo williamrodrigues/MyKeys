@@ -38,9 +38,6 @@
             android:name="br.schoollabs.mykeys.ListKeyActivity"
             android:label="@string/title_activity_list_key" />
         <activity
-            android:name="br.schoollabs.mykeys.NewCategoryActivity"
-            android:label="@string/title_activity_new_category" />
-        <activity
             android:name="br.schoollabs.mykeys.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity

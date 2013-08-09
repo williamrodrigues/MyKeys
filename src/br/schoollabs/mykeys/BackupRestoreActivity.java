@@ -32,11 +32,11 @@ public class BackupRestoreActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_backup_restore);
-		
+
 		listAdapter = new BackupRestoreAdapter(this);
 		setListAdapter(listAdapter);
 
-		registerForContextMenu(this.getListView());		
+		registerForContextMenu(this.getListView());
 
 		File arq = new File(Environment.getExternalStorageDirectory() + "/MyKeys/");
 		boolean b = arq.mkdir();
@@ -102,10 +102,9 @@ public class BackupRestoreActivity extends ListActivity {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					if(removeBackup(backupDelete)){
+					if (removeBackup(backupDelete)) {
 						Utils.msg(BackupRestoreActivity.this, "Backup excluído com sucesso!");
-					}
-					else{
+					} else {
 						Utils.msg(BackupRestoreActivity.this, "Erro excluir backup!");
 					}
 
@@ -142,7 +141,7 @@ public class BackupRestoreActivity extends ListActivity {
 			public void onClick(DialogInterface dialog, int which) {
 				try {
 					restoreDatabase(data);
-					
+
 					Utils.msg(BackupRestoreActivity.this, "Backup restaurado com sucesso!");
 
 					findBackup();
@@ -232,19 +231,19 @@ public class BackupRestoreActivity extends ListActivity {
 		output.close();
 		fis.close();
 	}
-	
-	private Boolean removeBackup(Data data){
+
+	private Boolean removeBackup(Data data) {
 		File diretorio = new File(Environment.getExternalStorageDirectory() + "/MyKeys/");
 		File fList[] = diretorio.listFiles();
 
 		System.out.println("Numero de backups do sistema: " + fList.length);
 
 		for (int i = 0; i < fList.length; i++) {
-			if(data.getContent().equals(fList[i].getName())){
+			if (data.getContent().equals(fList[i].getName())) {
 				return fList[i].delete();
 			}
 		}
-		
+
 		return false;
 	}
 }

@@ -8,13 +8,9 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -68,10 +64,6 @@ public class HomeActivity extends ListActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.action_home_category_new) {
-			Utils.startActivity(this, NewCategoryActivity.class);
-			return true;
-		}
 		if (item.getItemId() == R.id.action_settings) {
 			final AlertDialog.Builder editalert = new AlertDialog.Builder(this);
 
@@ -99,9 +91,6 @@ public class HomeActivity extends ListActivity {
 
 			return true;
 		}
-		if (item.getItemId() == R.id.action_backup_restore) {
-			Utils.startActivity(this, BackupRestoreActivity.class);
-		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -114,56 +103,6 @@ public class HomeActivity extends ListActivity {
 		intent.putExtra("idCategory", data.getId().toString());
 
 		startActivity(intent);
-	}
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.home_menu_item, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		switch (item.getItemId()) {
-		case R.id.action_home_delete:
-			final Data categoryDelete = (Data) getListAdapter().getItem(info.position);
-
-			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-			dialog.setTitle("Confirmação");
-			dialog.setIcon(R.drawable.content_discard);
-			dialog.setMessage("Deseja realmente excluir esta categoria?");
-			dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dataDaoSqLite.remove(categoryDelete);
-
-					findCategories();
-
-					Utils.msg(HomeActivity.this, "Categoria excluída com sucesso!!!");
-				}
-			});
-			dialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.cancel();
-				}
-			});
-
-			dialog.show();
-			return true;
-
-		case R.id.action_home_edit:
-			Data categoryEdit = (Data) getListAdapter().getItem(info.position);
-
-			Utils.startActivity(this, NewCategoryActivity.class, "idCategory", categoryEdit.getId().toString());
-
-		default:
-			return super.onContextItemSelected(item);
-		}
 	}
 
 	private void findCategories() {
