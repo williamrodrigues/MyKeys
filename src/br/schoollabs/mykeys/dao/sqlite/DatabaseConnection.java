@@ -3,6 +3,7 @@ package br.schoollabs.mykeys.dao.sqlite;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import br.schoollabs.utils.RSA;
 
 /**
  * 
@@ -57,6 +58,10 @@ public class DatabaseConnection extends SQLiteOpenHelper {
 		/* Dados para Aplicação */
 		db.execSQL("INSERT INTO Type (id, name, content, date) VALUES (2, 'Data', 'Dados', '19-07-2013 15:00:00')");
 		db.execSQL("INSERT INTO Data (id, name, content, date, ordem, type) VALUES (2, 'Category', 'E-mail', '19-07-2013 15:20:00', 1, 2)");
+		
+		if(!RSA.verificaSeExisteChavesNoSO()) {
+			RSA.geraChave();
+		}
 	}
 
 	@Override

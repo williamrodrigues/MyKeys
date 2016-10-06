@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import br.schoollabs.mykeys.model.Data;
 import br.schoollabs.mykeys.model.Registry;
+import br.schoollabs.utils.RSA;
 
 public class ListKeyAdapter extends ArrayAdapter<Data> {
 	private Context context;
@@ -39,7 +40,7 @@ public class ListKeyAdapter extends ArrayAdapter<Data> {
 			if ("UserApp".equals(registry.getName())) {
 				textViewUser.setText("Usuário: " + registry.getContent());
 			} else if ("PasswordApp".equals(registry.getName())) {
-				textViewPassword.setText("Senha: " + registry.getContent());
+				textViewPassword.setText("Senha: " + RSA.decrypter(registry.getContent()));
 			}
 		}
 

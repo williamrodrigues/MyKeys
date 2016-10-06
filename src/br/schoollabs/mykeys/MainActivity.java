@@ -9,6 +9,7 @@ import android.widget.Toast;
 import br.schoollabs.mykeys.dao.sqlite.DataDaoSqLite;
 import br.schoollabs.mykeys.dao.sqlite.DatabaseFactory;
 import br.schoollabs.mykeys.model.Data;
+import br.schoollabs.utils.RSA;
 import br.schoollabs.utils.Utils;
 
 public class MainActivity extends FragmentActivity {

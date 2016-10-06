@@ -16,6 +16,7 @@ import br.schoollabs.mykeys.dao.sqlite.RegistryDaoSqLite;
 import br.schoollabs.mykeys.dao.sqlite.TypeDaoSqLite;
 import br.schoollabs.mykeys.model.Data;
 import br.schoollabs.mykeys.model.Registry;
+import br.schoollabs.utils.RSA;
 import br.schoollabs.utils.Utils;
 import br.schoollabs.utils.Validator;
 
@@ -105,8 +106,10 @@ public class NewKeyActivity extends Activity {
 		userApp.setContent(((EditText) findViewById(R.id.editNewKeyUser)).getText().toString());
 		/* Senha */
 		passwordApp.setName("PasswordApp");
-		passwordApp.setContent(((EditText) findViewById(R.id.editNewKeyPassword)).getText().toString());
-
+		// CRIPTOGRAFA A SENHA
+		passwordApp.setContent(RSA.encrypt(((EditText) findViewById(R.id.editNewKeyPassword)).getText().toString()));
+		System.out.println("####### ENCRYPT: " + passwordApp.getContent());
+		
 		//
 		key.getRegistries().add(userApp);
 		key.getRegistries().add(passwordApp);
