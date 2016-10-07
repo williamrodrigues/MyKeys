@@ -40,6 +40,7 @@ public class ListKeyAdapter extends ArrayAdapter<Data> {
 			if ("UserApp".equals(registry.getName())) {
 				textViewUser.setText("Usuário: " + registry.getContent());
 			} else if ("PasswordApp".equals(registry.getName())) {
+				// Mostrando senha descriptografada
 				textViewPassword.setText("Senha: " + RSA.decrypter(registry.getContent()));
 			}
 		}
